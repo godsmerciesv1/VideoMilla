@@ -1,0 +1,21 @@
+# VideoMilla decision log
+
+Records every significant decision and every deviation from `docs/blueprint.md`.
+The blueprint is the guide, not a cage: the only fixed rule is enterprise-grade production quality.
+Updated at each phase.
+
+## Phase 0: Pre-build
+
+| # | Date | Decision | Why |
+| --- | --- | --- | --- |
+| D-001 | 2026-11-06 | `docs/blueprint.md` is the uploaded blueprint, unmodified. SHA-256 `883c77c73036fbb4931a7f4c252933d40be7b2f9f47bd6d0f444277a38965eb9` (275,694 bytes, 2,893 lines) | Owner asked for it to be stored as-is. Any later change to the blueprint is recorded here, never silently edited |
+| D-002 | 2026-11-06 | Git author is the GitHub account itself: `godsmerciesv1`, using GitHub's no-reply address `353287861+godsmerciesv1@users.noreply.github.com` | Owner said to derive the author from the repo credentials. The no-reply address keeps the Gmail address out of public commit history. The support email in the product is unchanged (`stmakarios@gmail.com`) |
+| D-003 | 2026-11-06 | The repository is `godsmerciesv1/VideoMilla` (capital V, M). The blueprint says `videomilla` | GitHub URLs are case-insensitive. Product identifiers (package ID, Pages names, Worker name) stay lower-case as in the blueprint |
+| D-004 | 2026-11-06 | Code is written and pushed from the build sandbox. The sandbox cannot download the Flutter SDK, so **every Flutter check (`pub get`, `gen-l10n`, `analyze`, `test`) runs in GitHub Actions** and its logs are read through the API. Worker checks (`typecheck`, `test`) are run both in the sandbox and in CI | Sandbox network allow-list excludes Flutter and pub.dev. Replaces the blueprint's Termux analysis loop (Section 27); Termux remains available to the owner for manual spot checks |
+| D-005 | 2026-11-06 | A minimal `check.yml` is built now (blueprint batch `n3`, F271) instead of at the end | The owner wants a check after every batch. It is `workflow_dispatch` only, so Section 12's no-`push:` rule still holds. Each job skips itself until its folder exists. It has a `repo` job (workflow rules, HTML and JSON validity, link check, secret scan), an `app` job and a `worker` job. Triggered through the GitHub API after each push |
+| D-006 | 2026-11-06 | Added `.github/scripts/guard.py` (not in the blueprint file list) | Gives the `repo` job its checks without third-party packages. The blueprint's F271 is later extended in `n3` with the optional debug-APK compile |
+| D-007 | 2026-11-06 | A branch `ci-analyser` mirrors `main` after each batch and checks are dispatched on it | Owner asked for a CI analyser branch. `main` stays the only release branch |
+| D-008 | 2026-11-06 | No version in the blueprint is assumed correct until CI resolves it (Flutter 3.47.1 / Dart 3.13.1, every plugin, Media3, Mediabunny). First CI results are recorded here when they exist | Blueprint Section 26, gate G3; owner instruction not to assume |
+| D-009 | 2026-11-06 | Batch 0 gates (G1, G2, G5, G8, G13, G15) are split: gates that need only code and Cloudflare (G5, G6, G13 partially) run when the Worker exists; gates that need the Redmi A5, a person's eyes or provider money (G1, G2, G8, G15) are handed to the owner as one short test each | Honest scheduling: the sandbox cannot run a phone or judge pictures |
+| D-010 | 2026-11-06 | Website pages (F003 to F008) are built directly in their final Part IX form (accounts, email sign-in, Cartoon Me, sounds, referrals, final-sales policy) | Blueprint Section 56 and 57 say Part IX governs where it differs from earlier parts, so building the older text first would only mean rewriting it |
+| D-011 | 2026-11-06 | The site references three pages built later (`child-safety.html`, `delete-account.html`, `refunds.html` in batch `p7b`) and `sounds/`. The guard reports them as warnings, not errors, until they exist | Blueprint Section 25: a file may refer to a later batch's page by URL |

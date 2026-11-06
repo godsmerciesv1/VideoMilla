@@ -1,0 +1,57 @@
+# Light check. Manual only (no push trigger, ever: blueprint Section 12).
+# No app build, no signing. Each job skips itself until its folder exists.
+name: check
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: 'What to check'
+        type: choice
+        default: all
+        options: [all, repo, app, worker]
+jobs:
+  repo:
+    if: ${{ inputs.scope == 'all' || inputs.scope == 'repo' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 .github/scripts/guard.py
+
+  app:
+    if: ${{ inputs.scope == 'all' || inputs.scope == 'app' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: detect
+        run: |
+          if [ -f app/pubspec.yaml ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "present=false" >> "$GITHUB_OUTPUT"; echo "No app/pubspec.yaml yet: skipping"; fi
+      - if: steps.detect.outputs.present == 'true'
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version-file: app/pubspec.yaml
+      - if: steps.detect.outputs.present == 'true'
+        run: flutter --version
+      - if: steps.detect.outputs.present == 'true'
+        working-directory: app
+        run: flutter pub get && flutter gen-l10n && flutter analyze
+      - if: steps.detect.outputs.present == 'true'
+        working-directory: app
+        run: |
+          if [ -d test ] && ls test/*_test.dart >/dev/null 2>&1; then flutter test; else echo "No Dart tests yet"; fi
+
+  worker:
+    if: ${{ inputs.scope == 'all' || inputs.scope == 'worker' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: detect
+        run: |
+          if [ -f worker/package.json ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "present=false" >> "$GITHUB_OUTPUT"; echo "No worker/package.json yet: skipping"; fi
+      - if: steps.detect.outputs.present == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - if: steps.detect.outputs.present == 'true'
+        working-directory: worker
+        run: npm install && npm run typecheck && npm test
