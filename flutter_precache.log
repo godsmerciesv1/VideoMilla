@@ -1,0 +1,28 @@
+[1/13] Material Fonts                                              176ms
+[2/13] Gradle Wrapper                                               17ms
+[3/13] Android SDK
+  ├─ [1/6] android-arm-profile/linux-x64                           172ms
+  ├─ [2/6] android-arm-release/linux-x64                           165ms
+  ├─ [3/6] android-arm64-profile/linux-x64                         479ms
+  ├─ [4/6] android-arm64-release/linux-x64                         185ms
+  ├─ [5/6] android-x64-profile/linux-x64                            89ms
+  └─ [6/6] android-x64-release/linux-x64                            86ms
+[4/13] Android Internal Build Artifacts
+  ├─ [1/10] android-x86                                          1,676ms
+  ├─ [2/10] android-x64                                          1,880ms
+  ├─ [3/10] android-arm                                          1,649ms
+  ├─ [4/10] android-arm-profile                                    788ms
+  ├─ [5/10] android-arm-release                                    692ms
+  ├─ [6/10] android-arm64                                        2,447ms
+  ├─ [7/10] android-arm64-profile                                  693ms
+  ├─ [8/10] android-arm64-release                                  765ms
+  ├─ [9/10] android-x64-profile                                    639ms
+  └─ [10/10] android-x64-release                                   606ms
+[5/13] Web SDK                                                     649ms
+[6/13] Flutter SDK
+  ├─ [1/5] sky_engine                                               73ms
+  ├─ [2/5] flutter_gpu                                              56ms
+  ├─ [3/5] flutter_patched_sdk                                     116ms
+  ├─ [4/5] flutter_patched_sdk_product                             123ms
+  └─ [5/5] linux-x64                                               433ms
+[13/13] linux-x64/font-subset                                       90ms
