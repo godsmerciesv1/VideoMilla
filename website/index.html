@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>VideoMilla: Story to Video</title>
+  <meta name="description" content="VideoMilla turns a sentence, a script or a drawing into a narrated, captioned video made of shots. A few shots are animated; the rest are pictures with a slow pan or zoom.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#4338CA">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="wordmark" href="/">VideoMilla</a>
+      <nav class="site-nav" aria-label="Site">
+        <a href="/support.html">Support</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <h1 class="wordmark-big">VideoMilla</h1>
+        <p class="lead">Turn a sentence, a script or a drawing into a narrated, captioned video made of shots.</p>
+        <div class="actions">
+          <a class="btn" href="https://videomilla-app.pages.dev">Open the web app</a>
+          <span id="play-badge" hidden></span>
+        </div>
+        <p class="small" style="margin-top:16px">A few shots are animated; the rest are pictures with a slow pan or zoom. That is how the videos are made, and the samples show exactly that mix.</p>
+      </section>
+
+      <section id="samples" hidden aria-labelledby="samples-title">
+        <p class="section-label" id="samples-title">Sample videos</p>
+        <div class="grid" id="sample-grid"></div>
+      </section>
+
+      <p class="section-label">How it works</p>
+      <div class="grid">
+        <div class="card"><span class="step" aria-hidden="true">1</span><h3>Write or draw</h3><p>Type a sentence, paste a script, or add a drawing. The AI can draft the script for you to review first.</p></div>
+        <div class="card"><span class="step" aria-hidden="true">2</span><h3>Pick a look and a cast</h3><p>Choose one of eight styles, build your characters and give each one a voice.</p></div>
+        <div class="card"><span class="step" aria-hidden="true">3</span><h3>Approve the pictures</h3><p>Every shot starts as a picture you approve. You choose which shots to animate and see the price first.</p></div>
+        <div class="card"><span class="step" aria-hidden="true">4</span><h3>Render and share</h3><p>The finished MP4 has narration and burned-in captions. Save it or share it from your phone or browser.</p></div>
+      </div>
+
+      <p class="section-label">Languages</p>
+      <ul class="langs" aria-label="Supported languages">
+        <li>English</li><li>Português (Brasil)</li><li>Español</li><li>हिन्दी</li><li>Bahasa Indonesia</li>
+        <li>العربية</li><li>Türkçe</li><li>Русский</li><li>日本語</li><li>한국어</li>
+        <li>Deutsch</li><li>עברית</li><li>Français</li><li>Italiano</li><li>Tiếng Việt</li>
+        <li>ไทย</li><li>Filipino</li><li>বাংলা</li><li>اردو</li><li>繁體中文</li>
+      </ul>
+      <p class="small">Each language is released once it passes its quality checks. Some translations are labeled beta until a native speaker has reviewed them.</p>
+
+      <p class="section-label">Credits, not subscriptions</p>
+      <div class="notice">
+        <p style="margin:0">VideoMilla runs on credit packs. There are no subscriptions and no ads. Credits never expire. All purchases are final; see <a href="/refunds.html">Refunds</a>.</p>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <nav aria-label="Legal">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/support.html">Support</a>
+        <a href="/child-safety.html">Child safety</a>
+        <a href="/delete-account.html">Delete account</a>
+        <a href="/refunds.html">Refunds</a>
+      </nav>
+      <p>Contact: <a href="mailto:stmakarios@gmail.com">stmakarios@gmail.com</a></p>
+      <p class="small">Built with Llama. Videos and pictures on this site and in the app are AI-generated.</p>
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    // Sample grid: filled from samples/manifest.json. Any failure or an empty list leaves the section hidden.
+    var section = document.getElementById('samples');
+    var grid = document.getElementById('sample-grid');
+    fetch('/samples/manifest.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (items) {
+        if (!Array.isArray(items) || items.length === 0) return;
+        items.forEach(function (it) {
+          if (!it || !it.src) return;
+          var card = document.createElement('div'); card.className = 'card sample';
+          var v = document.createElement('video');
+          v.controls = true; v.preload = 'none'; v.playsInline = true;
+          if (it.poster) v.poster = it.poster;
+          v.src = it.src;
+          v.setAttribute('aria-label', it.title || 'Sample video');
+          var t = document.createElement('h3'); t.textContent = it.title || 'Sample';
+          var tag = document.createElement('p'); tag.className = 'tag';
+          tag.textContent = 'AI-generated sample';
+          card.appendChild(v); card.appendChild(t); card.appendChild(tag);
+          grid.appendChild(card);
+        });
+        if (grid.children.length > 0) section.hidden = false;
+      })
+      .catch(function () { /* keep the section hidden */ });
+  })();
+  </script>
+</body>
+</html>
