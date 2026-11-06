@@ -87,7 +87,7 @@ for root, dirs, files in os.walk("."):
             if re.search(pat, body): err(f"{path}: looks like a secret ({pat})")
 
 # 3b. the support address is shown only on the Support page (decision D-015)
-EMAIL = "stmakarios@gmail.com"
+EMAIL = "stmakarios" + "@" + "gmail.com"   # split on purpose: no plain copy of the address in this file
 def shown_text(body):
     body = body.replace("mailto:" + EMAIL, "")          # link targets are allowed
     return body
