@@ -2,7 +2,7 @@
 # G3 toolchain spike. THROWAWAY: lives on the 'spikes' branch only, never on main.
 # Finds which real versions resolve and compile. Writes spikes/out/report.md.
 set -u
-WANTED="3.47.1"
+WANTED="3.47.9"
 OUT="$(pwd)/spikes/out"; mkdir -p "$OUT"; R="$OUT/report.md"
 WORK="${RUNNER_TEMP:-/tmp}/g3"; mkdir -p "$WORK"
 say(){ printf '%s\n' "$*" | tee -a "$R"; }
@@ -114,6 +114,7 @@ import androidx.media3.effect.BitmapOverlay
 import androidx.media3.effect.MatrixTransformation
 import androidx.media3.effect.OverlayEffect
 import androidx.media3.effect.Presentation
+import androidx.media3.effect.TextureOverlay
 import androidx.media3.transformer.Composition
 import androidx.media3.transformer.EditedMediaItem
 import androidx.media3.transformer.EditedMediaItemSequence
@@ -134,7 +135,7 @@ object Probe {
         val videoEffects = listOf<Effect>(
             Presentation.createForWidthAndHeight(w, h, Presentation.LAYOUT_SCALE_TO_FIT_WITH_CROP),
             zoom,
-            OverlayEffect(ImmutableList.of(overlay)),
+            OverlayEffect(ImmutableList.of<TextureOverlay>(overlay)),
         )
         val item = MediaItem.Builder().setUri(path).setImageDurationMs(durationMs).build()
         return EditedMediaItem.Builder(item).setFrameRate(25).setEffects(Effects(listOf(), videoEffects)).build()
@@ -180,7 +181,7 @@ sec "I. Mediabunny"
 mkdir -p "$WORK/mb" && cd "$WORK/mb" && npm init -y >/dev/null 2>&1
 { npm view mediabunny version license dist.tarball 2>&1 | head -6; } | sed 's/^/    /' >> "$R"
 npm install mediabunny >"$OUT/npm_mediabunny.log" 2>&1 && say "- npm install mediabunny: ok" || say "- npm install mediabunny: **FAILED**"
-{ echo '```'; ls -la node_modules/mediabunny/dist 2>/dev/null | head -30; echo; (cd node_modules/mediabunny/dist 2>/dev/null && sha256sum *.js *.mjs 2>/dev/null | head -10); echo '```'; } >> "$R"
+{ echo '```'; find node_modules/mediabunny/dist/bundles -type f -exec sha256sum {} \;; echo '```'; } >> "$R"
 
 sec "J. Worker toolchain (npm)"
 for p in typescript wrangler vitest @cloudflare/vitest-pool-workers @cloudflare/workers-types; do echo "- $p: $(npm view "$p" version 2>&1 | tail -1)" | tee -a "$R"; done
