@@ -43,4 +43,4 @@ Secrets live only in GitHub Actions secrets and Cloudflare Worker secrets. Nothi
 
 ## Support
 
-stmakarios@gmail.com
+[Contact support](mailto:stmakarios@gmail.com)

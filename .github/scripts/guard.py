@@ -86,6 +86,15 @@ for root, dirs, files in os.walk("."):
         for pat in SECRET_PATTERNS:
             if re.search(pat, body): err(f"{path}: looks like a secret ({pat})")
 
+# 3b. the support address is shown only on the Support page (decision D-015)
+EMAIL = "stmakarios@gmail.com"
+def shown_text(body):
+    body = body.replace("mailto:" + EMAIL, "")          # link targets are allowed
+    return body
+for path in ["README.md", "docs/decision.md"] + [h for h in glob.glob("website/**/*.html", recursive=True) if not h.endswith("support.html")]:
+    if os.path.exists(path) and EMAIL in shown_text(open(path, encoding="utf-8").read()):
+        err(f"{path}: shows the raw support address; use a 'Contact support' link (D-015)")
+
 # 4. required docs
 for need in ("docs/blueprint.md", "docs/decision.md", "README.md", ".gitignore"):
     if not os.path.exists(need): err(f"missing {need}")
