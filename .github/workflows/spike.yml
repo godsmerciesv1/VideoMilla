@@ -1,0 +1,47 @@
+# Runs a throwaway Batch 0 gate script from the dispatched branch (normally 'spikes').
+# Manual only. Results are pushed to the branch 'spike-results' so they can be read without downloading artifacts.
+name: spike
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: 'File name under spikes/ on the dispatched branch'
+        required: true
+        default: g3_toolchain.sh
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run the spike
+        env:
+          SCRIPT: ${{ inputs.script }}
+        run: |
+          case "$SCRIPT" in (*[!A-Za-z0-9_.-]*|"") echo "bad script name"; exit 1;; esac
+          test -f "spikes/$SCRIPT" || { echo "spikes/$SCRIPT not found on this branch"; exit 1; }
+          bash "spikes/$SCRIPT"
+      - name: Publish results to branch spike-results
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test -d spikes/out || exit 0
+          mkdir -p /tmp/res && cp -r spikes/out/. /tmp/res/
+          cd /tmp/res
+          for f in *.log; do [ -f "$f" ] && tail -c 150000 "$f" > "$f.tmp" && mv "$f.tmp" "$f"; done
+          git init -q -b spike-results
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "spike results: $SCRIPT (${{ github.run_id }})" || true
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" spike-results
