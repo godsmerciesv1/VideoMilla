@@ -94,3 +94,14 @@ Updated at each phase.
 | L-07 | Read the Llama 3.1, Qwen3 and Black Forest Labs API terms | Before batch `wc` |
 | L-08 | TypeScript 7 with the Worker toolchain; fallback 5.9.3 | Tested in batch `wa` |
 | L-09 | Whether the Pages/Workers static site gets a custom domain | When the domain is bought |
+
+## Phase 2: Models (batch m1)
+
+| # | Decision | Why |
+| --- | --- | --- |
+| D-048 | Added one file not in the blueprint list: `app/lib/core/models/json_helpers.dart` (shared readers and `enumFromName`). The file count is now 319 | Nine models would otherwise each copy the same twenty lines. A required value that is missing raises `AppError.corrupt`, so damaged stored data goes to the recovery path (this is the "D: F020" dependency the blueprint lists for every model) |
+| D-049 | The shared enums live in the model that owns them rather than in a separate file: `AspectOption`, `StyleId`, `CaptionStyle` in `project.dart`; `MotionKind`, `ShotState` in `shot.dart`; `AgeBand` in `character_profile.dart`; `AnimationZone` in `motion_plan.dart`; `ClipState` in `clip.dart`; `JobKind` in `generation_job.dart` | The blueprint names the vocabulary but gives no file for it. `Channel` follows in batch `m2` with `credit_pack.dart` |
+| D-050 | `StyleId` and `MotionKind` carry a `wire` name (`flat_vector`, `zoom_in`, ...) used in JSON and in Worker requests; local storage and the Worker use the same names | One spelling on both sides of the network avoids a mapping bug |
+| D-051 | `CharacterProfile` gains a `skinTone` field and `Brief` is defined in `project.dart` | Blueprint Section 5.4 requires explicit skin-tone pickers, but F029's field list omits the field. `Brief` is needed by `Project` and by the assist contract in batch `c1` |
+| D-052 | `ScriptInput.wordCount` counts whitespace-separated words, except Japanese, Traditional Chinese and Thai, which are counted as two characters a word | Those scripts have no spaces, so a whitespace count would let a 450-word limit become a few words. The exact rule is confirmed at gate G7 |
+| D-053 | A `[bracket]` direction is removed from the spoken text and returned as its own `direction` line (before the spoken part of that line); unmatched brackets stay as text; a `NAME:` prefix is dialogue only when the name is at most four words | Blueprint Section 5.1. The planner (batch `c2`) later decides whether a speaker is a known character |
