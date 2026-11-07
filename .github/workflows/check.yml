@@ -37,17 +37,23 @@ jobs:
       - name: Resolve, generate strings, analyze
         if: steps.detect.outputs.present == 'true'
         working-directory: app
+        shell: bash
         run: |
+          set -eo pipefail
           mkdir -p ../ci-out
           flutter --version 2>&1 | tee ../ci-out/version.log
           flutter pub get 2>&1 | tee ../ci-out/pub_get.log
           flutter gen-l10n 2>&1 | tee ../ci-out/gen_l10n.log
           # Blueprint Section 27: errors fail the batch; warnings and infos are tolerated (and shown).
           flutter analyze --no-fatal-infos --no-fatal-warnings 2>&1 | tee ../ci-out/analyze.log
+          # Belt and braces: an analyzer error must fail the job whatever the exit code says.
+          if grep -qE '^ +error • ' ../ci-out/analyze.log; then echo "::error::flutter analyze reported errors"; exit 1; fi
       - name: Tests
         if: steps.detect.outputs.present == 'true'
         working-directory: app
+        shell: bash
         run: |
+          set -eo pipefail
           if [ -d test ] && ls test/*_test.dart >/dev/null 2>&1; then flutter test 2>&1 | tee ../ci-out/test.log; else echo "No Dart tests yet" | tee ../ci-out/test.log; fi
       - name: Publish logs and lockfile
         if: always() && steps.detect.outputs.present == 'true'
@@ -81,7 +87,9 @@ jobs:
       - name: Install, typecheck, test
         if: steps.detect.outputs.present == 'true'
         working-directory: worker
+        shell: bash
         run: |
+          set -eo pipefail
           mkdir -p ../ci-out
           npm install 2>&1 | tee ../ci-out/npm_install.log
           npm run typecheck 2>&1 | tee ../ci-out/typecheck.log
