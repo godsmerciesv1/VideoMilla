@@ -1,0 +1,41 @@
+{
+  "@@locale": "en",
+
+  "appName": "VideoMilla",
+  "@appName": { "description": "The product name. Not translated." },
+
+  "actionRetry": "Try again",
+  "actionReport": "Report",
+  "actionClose": "Close",
+  "actionCancel": "Cancel",
+  "actionOk": "OK",
+  "actionContinue": "Continue",
+  "actionDelete": "Delete",
+  "actionSave": "Save",
+  "actionShare": "Share",
+  "contactSupport": "Contact support",
+
+  "creditsCount": "{count, plural, =0{No credits} one{{count} credit} other{{count} credits}}",
+  "@creditsCount": {
+    "description": "A number of credits, for example in a price or a balance.",
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "errorGenericTitle": "Something went wrong",
+  "errorGenericBody": "Please try again. If it keeps happening, tell us from the report button.",
+
+  "errorOffline": "You're offline. Check your connection and try again.",
+  "errorBusy": "Busy right now. Please try again in a little while. You were not charged.",
+  "errorModeration": "This can't be made. Edit your script and try again. You were not charged.",
+  "errorCredits": "You don't have enough credits for this.",
+  "errorInvalidOutput": "The result wasn't usable. Try again, or edit your script.",
+  "errorClipFailed": "That clip couldn't be made. You were not charged. Try again.",
+  "errorLipSyncFailed": "Lip-sync didn't work for this shot, so a voice-over is used instead. The clip was refunded.",
+  "errorRenderFailed": "The video couldn't be finished. You can export your pictures and audio instead.",
+  "errorStorageFull": "Your device is almost out of space. Free some space and try again.",
+  "errorPersistence": "Your changes may not be saved on this device.",
+  "errorCorrupt": "This project couldn't be opened.",
+  "errorBadCode": "That code isn't right. Check it and try again.",
+  "errorSession": "You were signed out. Sign in to see your credits.",
+  "errorUnsupportedBrowser": "This browser can't render videos. Use a recent Chrome or Edge, or export your pictures and audio instead."
+}
