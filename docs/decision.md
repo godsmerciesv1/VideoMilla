@@ -73,3 +73,24 @@ Updated at each phase.
 | D-043 | The Android native project (Gradle wrapper, settings, `res/`, launcher resources) is **not in the blueprint's file list**, but Flutter needs it. It will be generated with `flutter create --platforms android,web` in CI and committed in batch `n3`/`a2`, then the blueprint's own Android files are laid over it | Gap found while planning: the blueprint lists only the custom Android files |
 | D-044 | **Bug in my own check workflow, found and fixed:** the first p1a run reported success although `flutter analyze` found 2 errors (a missing import of `immutable`). Cause: GitHub's default shell does not use `pipefail`, so a failing command in `cmd \| tee file` was masked. Fix: `shell: bash` with `set -eo pipefail` on every logged step, plus an explicit gate that fails the job if the analyzer log contains an error line | A check that cannot fail is worse than none. The earlier `repo` job is unaffected (no pipe) |
 | D-045 | `app/pubspec.lock` is committed (141 packages, from the CI resolve on Flutter 3.47.9) | Pins transitive dependencies; G3 had pinned only direct ones |
+
+## Website look, second correction (2026-11-07)
+
+| # | Decision | Why |
+| --- | --- | --- |
+| D-046 | **Supersedes D-034's visual effects.** The website is now flat and bright: white page, light-grey rounded surfaces (28 px), a plain full-width header, solid capsule buttons, dark-grey (not pure black) text, weight 700 headings. **Removed:** blurred glass, background colour glows, soft shadows, the floating capsule header and gradient icon tiles. Phone illustration kept | Owner reported the previous version looked "dirty" with a "floating irritating header". I had judged it from desktop renders, which cannot show how a budget phone draws blur and glow. Effects that depend on the renderer are out until verified on the owner's phone |
+| D-047 | **Rule going forward:** visual changes are judged on the owner's phone, not asserted by me. I render at 390 px to catch layout faults, but only the owner's screenshot decides whether it looks right | Avoids repeating the mistake of D-034 |
+
+## Outstanding ledger (kept open on purpose)
+
+| # | Item | State |
+| --- | --- | --- |
+| L-01 | Whether to replace the 13 raw support-address mentions in `docs/blueprint.md` | Open: owner said keep for now |
+| L-02 | Whether to rewrite git history to remove the old README that showed the address | Open: owner said keep for now |
+| L-03 | "AI-generated" marking in exported videos (invisible, machine-readable; EU AI Act Art. 50(2)) | Open: owner asked whether it is a visible watermark (answer: no) and has not yet decided |
+| L-04 | Optional written confirmation from the video provider about which licence applies | Optional, not blocking |
+| L-05 | "Built with Llama" notice in the app's About screen | Open: owner may drop it |
+| L-06 | Whether Google Play still requires target SDK 36 on submission day | Checked at the final gate |
+| L-07 | Read the Llama 3.1, Qwen3 and Black Forest Labs API terms | Before batch `wc` |
+| L-08 | TypeScript 7 with the Worker toolchain; fallback 5.9.3 | Tested in batch `wa` |
+| L-09 | Whether the Pages/Workers static site gets a custom domain | When the domain is bought |
