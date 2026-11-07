@@ -121,3 +121,14 @@ I started building before Batch 0, which the blueprint puts first. That was not 
 | G15 Android render and service | Not run | Before batch `n1` (render spec F130 and Kotlin F139 to F143) | Redmi A5; a throwaway test APK | **You**; I build the APK in CI for you to download and install |
 
 **Natural order from here:** `m2`, `c1`, `c2` (pure Dart, no account needed) then **Cloudflare is needed for `wa`**, which also unlocks G13, G5 and G2. G1 and G15 are needed only after the Worker batches, so they come due around batch `a1`. **I stop and ask before each "Before batch" point above.**
+
+## Phase 2: Models (batch m2)
+
+| # | Decision | Why |
+| --- | --- | --- |
+| D-054 | Default background-sound fade-out is **2000 ms**, default volume **20** | Blueprint Section 54.2 gives volume 20% and says "a fade-out at the end" without a length. A constant, easy to change |
+| D-055 | **`GET /config` wire shape is now defined** (snake_case): `version`, `flags`, `credit_costs`, `packs_play`, `packs_polar`, `languages_enabled`, `voice_routes`, `min_app_version`, `caps`, `fair_use`, `referral`, `auth`. Credit-cost keys: `analysis_free_per_project`, `analysis`, `character_sheet`, `portrait`, `picture`, `clip_per_second`, `studio_voice_per_9s`, `studio_voice_min`, `series_new_character`, `series_reuse_character`. A pack entry is `{product_id, credits, tier_label?}`. Server-sourced models (config, wallet, account, referral, packs) read snake_case; locally stored models use camelCase | The blueprint names the config keys but never fixed the JSON. The Worker seed (F065) and `/config` route (F071) must follow this |
+| D-056 | `AppConfig.defaults` holds the blueprint's costs (3 free analyses, 4 per character sheet, 1 per picture, 2 per clip second, ...) and fair-use limits (150, 2, 200), and keeps `cartoon_me_enabled` and `google_signin_enabled` **off** | Safe values before the first fetch or offline. Sign-in stays hidden until the server turns it on, which matches the G16 rule |
+| D-057 | `Caption`, `RenderSegment` and `AudioEvent` are defined in `render_spec.dart`; `RenderPlan` (F055) will be the same type as `RenderSpec` | The blueprint has both names for one structure; two copies would drift |
+| D-058 | `CreditPack` has no price field and `tierLabel` is an optional config string | Blueprint F035: prices always come from the store or checkout. Tier names are not specified, so none are invented |
+| D-059 | `WalletState` drops `deviceCount` (it lives in `AccountState`); `CreditLedgerEntry` can read both the local form (milliseconds) and the server form (seconds) | Part IX, Section 57 for the first; the server stores `created_at` in seconds |
