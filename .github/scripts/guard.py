@@ -95,6 +95,12 @@ for path in ["README.md", "docs/decision.md"] + [h for h in glob.glob("website/*
     if os.path.exists(path) and EMAIL in shown_text(open(path, encoding="utf-8").read()):
         err(f"{path}: shows the raw support address; use a 'Contact support' link (D-015)")
 
+# 3c. public pages never name backend suppliers or models (decision D-032)
+SUPPLIERS = re.compile(r"cloudflare|workers ai|segmind|pruna|gemini|brevo|\bpolar\b|llama|flux\b|qwen|\bveo\b|\bltx|lightricks|google cloud|text-to-speech|wrangler", re.I)
+for h in glob.glob("website/**/*.html", recursive=True):
+    m = SUPPLIERS.search(open(h, encoding="utf-8").read())
+    if m: err(f"{h}: names a backend supplier or model ('{m.group(0)}'); keep public pages generic (D-032)")
+
 # 4. required docs
 for need in ("docs/blueprint.md", "docs/decision.md", "README.md", ".gitignore"):
     if not os.path.exists(need): err(f"missing {need}")
