@@ -94,6 +94,7 @@ class Shot {
     this.state = ShotState.pending,
     this.imagePath,
     this.narrationAudioPath,
+    this.narrationAudioMs,
     this.clipId,
     this.approved = false,
     this.schemaVersion = currentSchemaVersion,
@@ -113,6 +114,7 @@ class Shot {
         state: enumFromName(ShotState.values, json['state'], orElse: ShotState.pending),
         imagePath: readStringOrNull(json['imagePath']),
         narrationAudioPath: readStringOrNull(json['narrationAudioPath']),
+        narrationAudioMs: readIntOrNull(json['narrationAudioMs']),
         clipId: readStringOrNull(json['clipId']),
         approved: readBool(json['approved']),
         schemaVersion: readInt(json['schemaVersion'], currentSchemaVersion),
@@ -137,6 +139,9 @@ class Shot {
   final ShotState state;
   final String? imagePath;
   final String? narrationAudioPath;
+
+  /// Length of the narration audio. The render plan needs it to place voices and size the shot.
+  final int? narrationAudioMs;
   final String? clipId;
   final bool approved;
   final int schemaVersion;
@@ -159,6 +164,7 @@ class Shot {
     ShotState? state,
     String? imagePath,
     String? narrationAudioPath,
+    int? narrationAudioMs,
     String? clipId,
     bool? approved,
     bool clearImage = false,
@@ -179,6 +185,7 @@ class Shot {
         state: state ?? this.state,
         imagePath: clearImage ? null : (imagePath ?? this.imagePath),
         narrationAudioPath: clearNarrationAudio ? null : (narrationAudioPath ?? this.narrationAudioPath),
+        narrationAudioMs: clearNarrationAudio ? null : (narrationAudioMs ?? this.narrationAudioMs),
         clipId: clearClip ? null : (clipId ?? this.clipId),
         approved: approved ?? this.approved,
         schemaVersion: schemaVersion,
@@ -199,6 +206,7 @@ class Shot {
         'state': state.name,
         'imagePath': imagePath,
         'narrationAudioPath': narrationAudioPath,
+        'narrationAudioMs': narrationAudioMs,
         'clipId': clipId,
         'approved': approved,
       };
@@ -219,6 +227,7 @@ class Shot {
       other.state == state &&
       other.imagePath == imagePath &&
       other.narrationAudioPath == narrationAudioPath &&
+      other.narrationAudioMs == narrationAudioMs &&
       other.clipId == clipId &&
       other.approved == approved &&
       other.schemaVersion == schemaVersion;
@@ -238,6 +247,7 @@ class Shot {
         state,
         imagePath,
         narrationAudioPath,
+        narrationAudioMs,
         clipId,
         approved,
         schemaVersion,

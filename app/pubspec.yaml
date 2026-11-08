@@ -14,6 +14,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   archive: 4.6.0
+  characters: 1.4.1
   crypto: 3.0.8
   file_picker: 13.3.2
   flutter_secure_storage: 11.2.0
