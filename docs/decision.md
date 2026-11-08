@@ -132,3 +132,15 @@ I started building before Batch 0, which the blueprint puts first. That was not 
 | D-057 | `Caption`, `RenderSegment` and `AudioEvent` are defined in `render_spec.dart`; `RenderPlan` (F055) will be the same type as `RenderSpec` | The blueprint has both names for one structure; two copies would drift |
 | D-058 | `CreditPack` has no price field and `tierLabel` is an optional config string | Blueprint F035: prices always come from the store or checkout. Tier names are not specified, so none are invented |
 | D-059 | `WalletState` drops `deviceCount` (it lives in `AccountState`); `CreditLedgerEntry` can read both the local form (milliseconds) and the server form (seconds) | Part IX, Section 57 for the first; the server stores `created_at` in seconds |
+
+## Phase 3: Contracts (batch c1)
+
+| # | Decision | Why |
+| --- | --- | --- |
+| D-060 | `core/` stays platform-free, so contracts never use `dart:io`. The blueprint's `Future<File> download(...)` becomes `Future<String> download(...)` returning an **opaque media reference**; voice files, finished videos and exports use the same kind of reference. Each platform's store or file service resolves it (a file path on Android, a stored blob on the web) | Blueprint Section 10 forbids `dart:io` in `core/`, and the web has no file paths. This is the one place the blueprint's signature contradicts its own layering rule |
+| D-061 | Contracts are Dart 3 `abstract interface class` types and keep their small data types (`ClipRequest`, `VoiceFile`, `PurchaseUpdate`, ...) in the same file | One import per capability, and nothing outside the contract needs them |
+| D-062 | `ProjectStore` also covers scenes, shots, characters, clips, the job queue, series, media and a small key-value area (`readMeta`/`writeMeta`) | The blueprint's one-line contract hides what the providers need: the job queue must persist before running (F060), config and theme need a cache, pictures and audio need storage |
+| D-063 | `RenderService` gains `probe()` returning `supported / noEncoder / noWebCodecs`; `RenderHost` gains a `timeouts` stream; `FileService.exportFallback` returns an opaque reference to a zip | Blueprint rule D-7 (no encoder or no WebCodecs means a message and the image-and-audio export) and the Android 15 service timeout both need to reach the UI |
+| D-064 | `IdentityService` gains `replaceDevice`; the signed-in flag is kept, recovery codes are not | After sign-out the server issues a fresh anonymous credential (Section 52.7) |
+| D-065 | `ImageRequest` carries the pieces (prompt text, style, characters, references, size, key), not a finished prompt | The blueprint says prompts are assembled only in the Worker (F080), but its own `ImageRequest` lists a "prompt". I read it as the shot's description. The Worker adds style, character and safety wording |
+| D-066 | `AssistResult<T>` and `StructureResult` report `charged` and `freeRemaining` | The script screen shows the free-analysis counter and every paid action shows its price |
