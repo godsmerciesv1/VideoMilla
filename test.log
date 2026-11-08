@@ -1,0 +1,111 @@
+Resolving dependencies...
+Downloading packages...
+  cli_util 0.4.2 (0.6.0 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  test_api 0.7.12 (0.7.15 available)
+Got dependencies!
+4 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+
+::group::✅ Passing tests
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: the key is projectId:shotId:kind:attempt
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: a job is saved as running before it runs
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: at most 3 picture jobs run at once
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: portraits share the picture limit
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: at most 2 clip jobs run at once, independent of pictures
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: a retriable failure is retried after 2 s then 8 s with the same key
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: after the retries it is left for the user as failedRetriable
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: a non-retriable failure stops at once
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: an unexpected error is terminal
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: asking twice for the same key runs the job once
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: a user retry uses the next attempt number, so it is a new paid request
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: after a crash, unfinished jobs resume with the same key and finished ones are dropped
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/job_queue_test.dart: updates are announced
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: empty and blank text give no captions
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: two sentences share the time in proportion
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: time follows the number of characters
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: rounding never leaves a gap and the last ends at the total
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: a decimal point is not a sentence end
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: closing quotes stay with their sentence
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: graphemes, not code units, decide the weight
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: sentence marks of other scripts Japanese and full-width marks
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: sentence marks of other scripts Arabic question mark
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: sentence marks of other scripts Devanagari danda
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: sentence marks of other scripts Urdu full stop
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: sentence marks of other scripts Armenian full stop
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: line limits no line is longer than the limit and no caption has more than two lines
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: line limits a 40-character word is cut at the limit
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: line limits text without spaces is wrapped by characters
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: line limits CJK languages use 16 characters, others 32
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/caption_splitter_test.dart: every split is contiguous and ends at the total
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: narration only: the narrator reads it
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: a shot with no words needs no audio
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: an animated shot with one short line is a talking shot in that character voice
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: the same shot, not animated, is a voice-over
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: a line longer than 8 seconds is a voice-over even when animated
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: exactly 8 seconds still lip-syncs
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: a line whose length is not known yet is assumed to fit
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: after a lip-sync failure the shot becomes a voice-over
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: narration plus a line is a voice-over, narration first
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: two lines are a voice-over in order, each in its own voice
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: a character without a voice falls back to the narrator voice
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: an unknown speaker is read by the narrator and flagged
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/dialogue_planner_test.dart: plans come back in shot order
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: recommended count for 1 to 15 shots
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: half rounded up for 1 to 15 shots
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: zones (blueprint worked examples) n = 6: green to 2, amber 3, red 4 to 6
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: zones (blueprint worked examples) n = 9: green to 3, amber 4 to 5, red 6 to 9
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: zones (blueprint worked examples) n = 15: green to 5, amber 6 to 8, red 9 to 15
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: zones (blueprint worked examples) n = 1: one shot is green
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: confirming all needs three or more shots
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: warnings by zone
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: autoSelect first shot, then ties go to the earlier shot, result in shot order
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: autoSelect picks the recommended count
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: autoSelect an empty list selects nothing
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: plan two shots of 5 s: green, 20 credits, 10 seconds
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: plan three shots: amber
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: plan four shots: red and needs confirmation
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: plan all shots need the extra confirmation
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: plan unknown ids are ignored
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: plan a talking shot is billed by its audio
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/animation_planner_test.dart: plan a line longer than 8 s is not a talking shot
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: a kept clip wins over the shot length; a still stretches to its audio
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: narration is placed at the start of its segment and voices never overlap
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: captions follow the spoken text, timed in video time
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: a rejected clip is ignored and the picture is used
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: a shot with neither picture nor clip is skipped
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: shots are placed in shot order whatever order they arrive in
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: a talking clip plays the character line audio at the segment start
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: narration then lines play one after another inside a segment
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: landscape size, language, caption style, grade and sound are carried over
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: the plan survives a JSON round trip
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: still motion curves zoom in goes from 1.00 to 1.12
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: still motion curves zoom out goes from 1.12 to 1.00
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: still motion curves pans hold 1.10 and move 4% each way, reversed for panRight
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: still motion curves hold does not move and animate falls back to a zoom in
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/render_plan_test.dart: still motion curves progress is clamped
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/referral_math_test.dart: bonus is 10% rounded down
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/referral_math_test.dart: only packs of 90 or more qualify
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/referral_math_test.dart: caps inside both caps
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/referral_math_test.dart: caps the 21st referral is not paid
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/referral_math_test.dart: caps bonus credit cap
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/referral_math_test.dart: referrer share is paid after 14 days
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: clip credits 2 credits per second
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: clip credits talking clip: larger of 6 and 2 per started second
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: previewCost affordable
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: previewCost short
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: projectEstimate matches the blueprint examples 15 s, 3 shots, 1 character, 1 animated = 17
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: projectEstimate matches the blueprint examples 30 s = 34
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: projectEstimate matches the blueprint examples 45 s = 47
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: projectEstimate matches the blueprint examples 60 s = 60
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: projectEstimate matches the blueprint examples 90 s = 73
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: projectEstimate matches the blueprint examples 45 s all animated = 107
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: smallestCoveringPack picks the smallest that covers
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: smallestCoveringPack none covers: the largest
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: smallestCoveringPack no packs
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: regionalPriceOk above the floor
+✅ /home/runner/work/VideoMilla/VideoMilla/app/test/ledger_math_test.dart: regionalPriceOk below the floor
+::endgroup::
+
+🎉 97 tests passed.
