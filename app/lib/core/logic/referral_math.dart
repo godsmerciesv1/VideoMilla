@@ -1,5 +1,5 @@
-/// Referral arithmetic (blueprint Section 53). Every figure has the blueprint
-/// value as its default and can be overridden from the server's `referral` config.
+// Referral arithmetic (blueprint Section 53). Every figure has the blueprint
+// value as its default and can be overridden from the server's `referral` config.
 
 const int referralPercent = 10;
 const int referralMinPackCredits = 90;

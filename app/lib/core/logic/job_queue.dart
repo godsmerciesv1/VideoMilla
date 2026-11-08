@@ -39,16 +39,14 @@ JobLane laneOf(JobKind kind) {
 ///   `failedRetriable` for the user. Any other failure is `failedTerminal` at once.
 class JobQueue {
   JobQueue({
-    required ProjectStore store,
-    required JobRunner runner,
+    required this._store,
+    required this._runner,
     DelayFn? delay,
     DateTime Function()? now,
     this.maxPictureJobs = 3,
     this.maxClipJobs = 2,
     this.maxOtherJobs = 3,
-  })  : _store = store,
-        _runner = runner,
-        _delay = delay ?? ((d) => Future<void>.delayed(d)),
+  })  : _delay = delay ?? ((d) => Future<void>.delayed(d)),
         _now = now ?? DateTime.now;
 
   /// Waits before the first and second automatic retry.
