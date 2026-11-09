@@ -175,3 +175,11 @@ I started building before Batch 0, which the blueprint puts first. That was not 
 | G13, G5, G2 | **Unblocked**: Cloudflare Workers AI is reachable. They run in GitHub Actions, using Workers AI, once their test inputs are ready |
 | G6 (ledger on real D1) | Unblocked: D1 database exists |
 | G1, G15, G8 | Unchanged: need the Redmi A5 (G1, G15) and provider money (G8) |
+
+## Owner feedback, 2026-11-09 (fallback storage, account timing, country checks)
+
+| # | Decision | Why |
+| --- | --- | --- |
+| D-080 | **Supersedes the KV part of D-075.** The free Workers KV fallback is kept. Temporary clips go to R2 first; if an R2 call fails, they are stored in KV (namespace `videomilla-clips-fallback`, id `c9bd264c9944480a84604b9ab2f6de87`, entries expire after 24 hours by themselves). Both sit behind one storage interface in the Worker (batch `wc`/`wd`) | Owner asked for the free fallback. KV values are limited to 25 MiB, enough for a clip; the free plan allows about 1,000 writes a day, so it is a safety net, not the main path |
+| D-081 | **Account setup is independent of Worker batches `wa` and `wb`**, so the owner can open accounts while those are built. Dependencies: `wd` needs Polar products and the video-provider keys (gate G8); `wp` needs Google Cloud and Play; `wq` needs Brevo, a domain and Google sign-in IDs | Answers the owner's question about ordering |
+| D-082 | **Country checks for the owner (Nigeria), 2026-11-09.** Polar: Nigeria is on its supported payout list; payouts need a **Nigerian bank account in naira** (Wise, Payoneer and similar accounts generally do not pass Stripe's check). Google Play: Google's own table lists Nigeria as supporting both developer and merchant registration (USD); a 2025 blog claimed otherwise, so it is **re-verified inside Play Console during registration**. The payments-profile country cannot be changed later and the payout bank account must be in that same country | Money flow is the product, so a country dead-end would have been expensive to find late |
