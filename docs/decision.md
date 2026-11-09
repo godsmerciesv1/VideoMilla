@@ -157,3 +157,21 @@ I started building before Batch 0, which the blueprint puts first. That was not 
 | D-072 | Animation warnings are localized-string keys (`warnExtraCost`, `warnWaiting`, `warnDrift`, `warnRefundOnFail`, `warnSlowerRender`, `warnBusy`, `warnTryRecommended`). Amber shows four of them; red shows all seven. The English texts are added to `app_en.arb` in batch `p4c` | Blueprint Section 5.7 lists the implications but not which belong to which zone |
 | D-073 | The job queue holds a job in `running` while it waits to retry (so its lane slot is kept), retries a retriable failure after 2 s then 8 s (three tries in all) with the **same key**, then leaves it `failedRetriable`. A non-retriable or unexpected error is `failedTerminal` at once. Picture and portrait jobs share one limit of 3; clips 2; everything else 3 | Blueprint F060. Reusing the key on automatic retries is what makes "a job never charges twice" true |
 | D-074 | Job identity: the job id equals its key; a job without a shot uses `_` in the key | Keeps the key valid for the Worker's `^[A-Za-z0-9:_-]{8,96}$` check |
+
+## Cloudflare set up (2026-11-09)
+
+| # | Decision | Why |
+| --- | --- | --- |
+| D-075 | **The owner's debit card was accepted and R2 is active at $0/month** (free allowance 10 GB, 1 M class A and 10 M class B operations). The Worker keeps the blueprint's R2 design for temporary clips. The Workers KV fallback proposed earlier is **dropped** | The card on file is only charged for usage above the free limits. Workers itself stays on the **Free plan**; nothing was upgraded |
+| D-076 | Resources created in the Cloudflare account through the API: D1 database `videomilla-db` (`d1a493dd-ca82-4148-817e-90b587cfc102`), R2 bucket `videomilla-clips`, queue `clip-jobs` (`6b8c2817a5f24761ae4e7b8acf6b5426`). The Worker already published at `godsmerciesv1.workers.dev` (subdomain `godsmerciesv1`) is the static site `videomilla`; the API Worker will be `videomilla-api` | IDs are not secrets. They go into `worker/wrangler.toml` in batch `wa` |
+| D-077 | The build sandbox cannot reach `api.cloudflare.com`, so Cloudflare setup runs **in GitHub Actions**: `.github/workflows/provision.yml` runs scripts from `.github/scripts/cloudflare/` **on `main` only**, using the repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` (stored encrypted through the GitHub API), and publishes a secret-free JSON report to the branch `provision-results` | Same pattern as the CI logs. Only reviewed code on `main` can touch the token. `guard.py` now also rejects Cloudflare token patterns anywhere in the repo |
+| D-078 | The token the owner created carries almost every Cloudflare permission (the summary listed Billing, API Tokens and Zero Trust among them), not the 8 requested. The scripts use only: Workers Scripts, D1, Queues, R2, Workers AI, account read | Verified working on 2026-11-09: token active, account readable, Workers/D1/KV/Queues/R2 listable, Workers AI answered a live test call |
+| D-079 | Because Workers stays on the **Free plan**, the Worker is built for a 10 ms CPU limit per request: pictures and audio travel as raw bytes, not base64 text; the `[limits] cpu_ms` line is left out of `wrangler.toml` (paid plans only). If a route still exceeds the limit in tests, it is reported, not hidden | Free plan: 100,000 requests a day, 10 ms CPU per request, Workers AI 10,000 neurons a day (about 4 to 5 thirty-second videos a day by my estimate). Launch needs the $5 Workers Paid plan |
+
+### Gate tracker update
+
+| Gate | Status now |
+| --- | --- |
+| G13, G5, G2 | **Unblocked**: Cloudflare Workers AI is reachable. They run in GitHub Actions, using Workers AI, once their test inputs are ready |
+| G6 (ledger on real D1) | Unblocked: D1 database exists |
+| G1, G15, G8 | Unchanged: need the Redmi A5 (G1, G15) and provider money (G8) |
