@@ -3,7 +3,7 @@ import json, sys
 sys.path.insert(0, ".github/scripts/cloudflare")
 from _cf import ACC, call, errors
 
-D1_NAME, R2_NAME, QUEUE_NAME = "videomilla-db", "videomilla-clips", "clip-jobs"
+D1_NAME, R2_NAME, QUEUE_NAME, KV_NAME = "videomilla-db", "videomilla-clips", "clip-jobs", "videomilla-clips-fallback"
 out = {}
 
 # D1 database
@@ -29,5 +29,13 @@ if not have and p.get("success"):
     st, p = call("POST", f"/accounts/{ACC}/queues", {"queue_name": QUEUE_NAME})
     have = [p["result"]] if p.get("success") else []
 out["queue"] = {"name": QUEUE_NAME, "queue_id": have[0].get("queue_id") if have else None, "errors": errors(p) if not have else []}
+
+# Workers KV namespace (free fallback store for temporary clips if R2 is unavailable)
+st, p = call("GET", f"/accounts/{ACC}/storage/kv/namespaces")
+have = [n for n in (p.get("result") or []) if n.get("title") == KV_NAME] if p.get("success") else []
+if not have and p.get("success"):
+    st, p = call("POST", f"/accounts/{ACC}/storage/kv/namespaces", {"title": KV_NAME})
+    have = [p["result"]] if p.get("success") else []
+out["kv"] = {"title": KV_NAME, "namespace_id": have[0].get("id") if have else None, "errors": errors(p) if not have else []}
 
 print(json.dumps(out, indent=2))
