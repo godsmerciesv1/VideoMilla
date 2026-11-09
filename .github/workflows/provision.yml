@@ -1,0 +1,43 @@
+# Runs a Cloudflare setup script that is committed on MAIN (never from another branch), using the repo secrets.
+# Manual only. The script's JSON report (no secrets) is published to the branch 'provision-results'.
+name: provision
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: 'Script name under .github/scripts/cloudflare (without .py): verify or provision'
+        required: true
+        default: verify
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Run
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SCRIPT: ${{ inputs.script }}
+        shell: bash
+        run: |
+          set -eo pipefail
+          case "$SCRIPT" in (verify|provision) ;; (*) echo "unknown script"; exit 1;; esac
+          mkdir -p out
+          python3 ".github/scripts/cloudflare/$SCRIPT.py" | tee "out/$SCRIPT.json"
+      - name: Publish the report
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test -d out || exit 0
+          cd out
+          echo "run ${{ github.run_id }} commit ${{ github.sha }}" > source.txt
+          git init -q -b provision-results
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -q -m "provision report ${{ github.run_id }}" || true
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" provision-results

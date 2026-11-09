@@ -16,7 +16,7 @@ errors, warnings = [], []
 PLANNED = {"child-safety.html", "delete-account.html", "refunds.html", "sounds/"}
 SECRET_PATTERNS = [
     r"ghp_[A-Za-z0-9]{30,}", r"github_pat_[A-Za-z0-9_]{30,}",
-    r"-----BEGIN (?:RSA |EC )?PRIVATE KEY-----", r"AIza[0-9A-Za-z_\-]{30,}",
+    r"-----BEGIN (?:RSA |EC )?PRIVATE KEY-----", r"AIza[0-9A-Za-z_\-]{30,}", r"cfut_[A-Za-z0-9]{30,}", r"cfk_[A-Za-z0-9]{30,}",
 ]
 
 def err(m): errors.append(m); print(f"::error::{m}")
