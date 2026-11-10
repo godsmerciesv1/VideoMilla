@@ -25,7 +25,7 @@ jobs:
         shell: bash
         run: |
           set -eo pipefail
-          case "$SCRIPT" in (verify|provision) ;; (*) echo "unknown script"; exit 1;; esac
+          case "$SCRIPT" in (verify|provision|models) ;; (*) echo "unknown script"; exit 1;; esac
           mkdir -p out
           python3 ".github/scripts/cloudflare/$SCRIPT.py" | tee "out/$SCRIPT.json"
       - name: Publish the report
