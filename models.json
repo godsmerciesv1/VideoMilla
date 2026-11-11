@@ -1,0 +1,439 @@
+{
+ "@cf/ai4bharat/indictrans2-en-indic-1B": {
+  "task": "Translation",
+  "properties": []
+ },
+ "@cf/aisingapore/gemma-sea-lion-v4-27b-it": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=128000"
+  ]
+ },
+ "@cf/baai/bge-base-en-v1.5": {
+  "task": "Text Embeddings",
+  "properties": [
+   "context_window=153600"
+  ]
+ },
+ "@cf/baai/bge-large-en-v1.5": {
+  "task": "Text Embeddings",
+  "properties": []
+ },
+ "@cf/baai/bge-m3": {
+  "task": "Text Embeddings",
+  "properties": [
+   "context_window=60000"
+  ]
+ },
+ "@cf/baai/bge-reranker-base": {
+  "task": "Text Classification",
+  "properties": []
+ },
+ "@cf/baai/bge-small-en-v1.5": {
+  "task": "Text Embeddings",
+  "properties": []
+ },
+ "@cf/black-forest-labs/flux-1-schnell": {
+  "task": "Text-to-Image",
+  "properties": []
+ },
+ "@cf/black-forest-labs/flux-2-dev": {
+  "task": "Text-to-Image",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/black-forest-labs/flux-2-klein-4b": {
+  "task": "Text-to-Image",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/black-forest-labs/flux-2-klein-9b": {
+  "task": "Text-to-Image",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/bytedance/stable-diffusion-xl-lightning": {
+  "task": "Text-to-Image",
+  "properties": [
+   "beta=true",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/cloudflare/clairic": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=65536"
+  ]
+ },
+ "@cf/cloudflare/clef": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=65536"
+  ]
+ },
+ "@cf/cloudflare/clef-flash": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=24576"
+  ]
+ },
+ "@cf/cloudflare/clef-omni": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=65536"
+  ]
+ },
+ "@cf/daily-co/phonellm-mini-alpha-2": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=262140"
+  ]
+ },
+ "@cf/deepgram/aura-1": {
+  "task": "Text-to-Speech",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/deepgram/aura-2-en": {
+  "task": "Text-to-Speech",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/deepgram/aura-2-es": {
+  "task": "Text-to-Speech",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/deepgram/flux": {
+  "task": "Automatic Speech Recognition",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/deepgram/nova-3": {
+  "task": "Automatic Speech Recognition",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=80000",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/deepseek-ai/deepseek-v4-flash-0731": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=1048576",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/deepseek-ai/deepseek-v4-pro-0813": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=1048576",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/deepseek-ai/deepseek-v4.1-flash-1017": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=1048576"
+  ]
+ },
+ "@cf/google/embeddinggemma-300m": {
+  "task": "Text Embeddings",
+  "properties": [
+   "beta=true",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/google/gemma-2b-it-lora": {
+  "task": "Text Generation",
+  "properties": [
+   "beta=true",
+   "context_window=8192",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/google/gemma-4-26b-a4b-it": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=256000"
+  ]
+ },
+ "@cf/google/gemma-7b-it-lora": {
+  "task": "Text Generation",
+  "properties": [
+   "beta=true",
+   "context_window=3500",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/huggingface/distilbert-sst-2-int8": {
+  "task": "Text Classification",
+  "properties": []
+ },
+ "@cf/ibm-granite/granite-4.0-h-micro": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=131000"
+  ]
+ },
+ "@cf/leonardo/lucid-origin": {
+  "task": "Text-to-Image",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/leonardo/phoenix-1.0": {
+  "task": "Text-to-Image",
+  "properties": [
+   "partner=true"
+  ]
+ },
+ "@cf/llava-hf/llava-1.5-7b-hf": {
+  "task": "Image-to-Text",
+  "properties": [
+   "beta=true",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/lykon/dreamshaper-8-lcm": {
+  "task": "Text-to-Image",
+  "properties": [
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/meta-llama/llama-2-7b-chat-hf-lora": {
+  "task": "Text Generation",
+  "properties": [
+   "beta=true",
+   "context_window=8192",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/meta/llama-3.1-8b-instruct-fp8": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=32000",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/meta/llama-3.2-11b-vision-instruct": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=128000"
+  ]
+ },
+ "@cf/meta/llama-3.2-1b-instruct": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=60000",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/meta/llama-3.2-3b-instruct": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=80000",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/meta/llama-3.3-70b-instruct-fp8-fast": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=24000"
+  ]
+ },
+ "@cf/meta/llama-4-scout-17b-16e-instruct": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=131000"
+  ]
+ },
+ "@cf/meta/llama-guard-3-8b": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=131072"
+  ]
+ },
+ "@cf/meta/m2m100-1.2b": {
+  "task": "Translation",
+  "properties": []
+ },
+ "@cf/microsoft/resnet-50": {
+  "task": "Image Classification",
+  "properties": []
+ },
+ "@cf/mistral/mistral-7b-instruct-v0.2-lora": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=15000"
+  ]
+ },
+ "@cf/mistralai/mistral-small-3.1-24b-instruct": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=128000"
+  ]
+ },
+ "@cf/moondream/moondream3.1-9B-A2B": {
+  "task": "Image-to-Text",
+  "properties": []
+ },
+ "@cf/moonshotai/kimi-k2.6": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=262144",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/moonshotai/kimi-k2.7-code": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=262144",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/myshell-ai/melotts": {
+  "task": "Text-to-Speech",
+  "properties": [
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/nvidia/nemotron-3-120b-a12b": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=256000",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/openai/gpt-oss-120b": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=128000"
+  ]
+ },
+ "@cf/openai/gpt-oss-20b": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=128000"
+  ]
+ },
+ "@cf/openai/whisper": {
+  "task": "Automatic Speech Recognition",
+  "properties": []
+ },
+ "@cf/openai/whisper-large-v3-turbo": {
+  "task": "Automatic Speech Recognition",
+  "properties": []
+ },
+ "@cf/openai/whisper-tiny-en": {
+  "task": "Automatic Speech Recognition",
+  "properties": [
+   "beta=true",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/pfnet/plamo-embedding-1b": {
+  "task": "Text Embeddings",
+  "properties": []
+ },
+ "@cf/pipecat-ai/smart-turn-v2": {
+  "task": "Voice Activity Detection",
+  "properties": []
+ },
+ "@cf/qwen/qwen2.5-coder-32b-instruct": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=32768"
+  ]
+ },
+ "@cf/qwen/qwen3-30b-a3b-fp8": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=32768",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/qwen/qwen3-embedding-0.6b": {
+  "task": "Text Embeddings",
+  "properties": [
+   "context_window=8192"
+  ]
+ },
+ "@cf/qwen/qwen3.8-27b": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=262144"
+  ]
+ },
+ "@cf/qwen/qwq-32b": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=24000",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/runwayml/stable-diffusion-v1-5-inpainting": {
+  "task": "Text-to-Image",
+  "properties": [
+   "beta=true",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/stabilityai/stable-diffusion-xl-base-1.0": {
+  "task": "Text-to-Image",
+  "properties": [
+   "beta=true",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/swiss-ai/apertus-v1.5-8b": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=262144"
+  ]
+ },
+ "@cf/utter-project/eurollm-9b-it": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=32000"
+  ]
+ },
+ "@cf/zai-org/glm-4.7-flash": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=131072"
+  ]
+ },
+ "@cf/zai-org/glm-5.2": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=262144",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ },
+ "@cf/zai-org/glm-5.3": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=1048576"
+  ]
+ },
+ "@cf/zai-org/glm-5.3-flash": {
+  "task": "Text Generation",
+  "properties": [
+   "context_window=1048576",
+   "planned_deprecation_date=2026-11-20"
+  ]
+ }
+}
