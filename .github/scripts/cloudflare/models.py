@@ -14,7 +14,7 @@ while page <= 12:
         break
     for m in rows:
         n = m.get("name", "")
-        if any(w in n.lower() for w in wanted):
+        if True:
             found[n] = {"task": (m.get("task") or {}).get("name"), "properties": [x.get("property_id") + "=" + str(x.get("value")) for x in (m.get("properties") or []) if x.get("property_id") in ("beta", "partner", "planned_deprecation_date", "context_window")]}
     page += 1
 print(json.dumps(dict(sorted(found.items())), indent=1))
