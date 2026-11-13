@@ -1,0 +1,34 @@
+name = "videomilla-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-29"
+
+# Plain vars (not secrets). Secrets are set with `wrangler secret put` and never live here.
+[vars]
+WEB_ORIGIN = "https://videomilla-app.pages.dev"
+APP_ORIGIN = "https://videomilla-app.pages.dev"
+SITE_ORIGIN = "https://videomilla.godsmerciesv1.workers.dev"
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "videomilla-db"
+database_id = "d1a493dd-ca82-4148-817e-90b587cfc102"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "CLIPS"
+bucket_name = "videomilla-clips"
+
+# Free fallback for temporary clips if R2 fails (decision D-080).
+[[kv_namespaces]]
+binding = "CLIPS_KV"
+id = "c9bd264c9944480a84604b9ab2f6de87"
+
+[[queues.producers]]
+queue = "clip-jobs"
+binding = "CLIP_JOBS"
+
+# The queue consumer and the daily cron are added in batch wd, together with their handlers.
+# No [limits] cpu_ms: that setting needs the paid plan (decision D-079).

@@ -1,0 +1,19 @@
+{
+  "name": "videomilla-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "VideoMilla API: a Cloudflare Worker with D1, R2, Queues and Workers AI.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "1.6.1",
+    "@cloudflare/workers-types": "5.20261110.1",
+    "typescript": "7.0.2",
+    "vitest": "4.1.12",
+    "wrangler": "4.158.0"
+  }
+}
