@@ -3,6 +3,7 @@ import type { Auth } from './lib/auth';
 import { authenticate } from './lib/auth';
 import { HttpError, belowMin, errorResponse, preflight, withCors, json } from './lib/http';
 import { cfg, handleConfig } from './routes/config';
+import { handleReport } from './routes/report';
 import { handleBalance, handleSession } from './routes/session';
 
 /**
@@ -12,6 +13,7 @@ import { handleBalance, handleSession } from './routes/session';
 async function route(req: Request, env: Env, auth: Auth, path: string): Promise<Response> {
   if (path === '/v1/balance' && req.method === 'GET') return handleBalance(env, auth);
   if (path === '/v1/config' && req.method === 'GET') return handleConfig(env);
+  if (path === '/v1/report' && req.method === 'POST') return handleReport(req, env, auth);
   throw new HttpError(404, 'not_found');
 }
 
