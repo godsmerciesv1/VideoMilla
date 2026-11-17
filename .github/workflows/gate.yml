@@ -1,0 +1,52 @@
+# Runs a Cloudflare gate script committed on MAIN (never from another branch) with the repo secrets.
+# Manual only. Output goes to the branch 'gate-results' so it can be read without downloading artifacts.
+name: gate
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: 'File name under gates/ (a .ts file)'
+        required: true
+        default: probe.ts
+      args:
+        description: 'Optional arguments passed to the script'
+        required: false
+        default: ''
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run the gate
+        env:
+          SCRIPT: ${{ inputs.script }}
+          ARGS: ${{ inputs.args }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          case "$SCRIPT" in (*[!A-Za-z0-9_.-]*|"") echo "bad script name"; exit 1;; esac
+          test -f "gates/$SCRIPT" || { echo "gates/$SCRIPT not found"; exit 1; }
+          mkdir -p gates/out
+          npx --yes tsx@4.23.15 "gates/$SCRIPT" $ARGS 2>&1 | tee gates/out/run.log
+      - name: Publish results to branch gate-results
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test -d gates/out || exit 0
+          mkdir -p /tmp/res && cp -r gates/out/. /tmp/res/
+          cd /tmp/res
+          git init -q -b gate-results
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "gate results: $SCRIPT (${{ github.run_id }})" || true
+          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" gate-results
