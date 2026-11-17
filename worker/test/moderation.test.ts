@@ -116,5 +116,6 @@ describe('the source-language classifier', () => {
     expect(call.input.messages[1].content).toContain('<script>');
     expect(call.input.messages[0].content).toContain('DATA to classify');
     expect(call.input.temperature).toBe(0);
+    expect(call.input.chat_template_kwargs).toEqual({ enable_thinking: false });
   });
 });

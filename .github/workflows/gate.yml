@@ -37,17 +37,21 @@ jobs:
           test -f "gates/$SCRIPT" || { echo "gates/$SCRIPT not found"; exit 1; }
           mkdir -p gates/out
           npx --yes tsx@4.23.15 "gates/$SCRIPT" $ARGS 2>&1 | tee gates/out/run.log
-      - name: Publish results to branch gate-results
+      - name: Publish results to branch gate-results (kept, one folder per run)
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
+          SCRIPT: ${{ inputs.script }}
         run: |
           test -d gates/out || exit 0
-          mkdir -p /tmp/res && cp -r gates/out/. /tmp/res/
+          REPO="https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          rm -rf /tmp/res
+          git clone -q --branch gate-results --depth 1 "$REPO" /tmp/res 2>/dev/null || { mkdir -p /tmp/res && git -C /tmp/res init -q -b gate-results; }
+          NAME="${SCRIPT%.ts}-${{ github.run_id }}"
+          mkdir -p "/tmp/res/$NAME" && cp -r gates/out/. "/tmp/res/$NAME/"
           cd /tmp/res
-          git init -q -b gate-results
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -q -m "gate results: $SCRIPT (${{ github.run_id }})" || true
-          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" gate-results
+          git commit -q -m "gate results: $NAME" || true
+          git push "$REPO" gate-results

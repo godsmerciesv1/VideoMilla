@@ -86,7 +86,9 @@ export async function classifySourceLanguage(env: Env, text: string, language: s
         { role: 'user', content: `Language: ${language}\n<script>\n${quoted}\n</script>` },
       ],
       temperature: 0,
-      max_tokens: 40,
+      max_tokens: 60,
+      // Gemma 4 reasons before answering; with reasoning on, a short answer budget can end empty (found at G13).
+      chat_template_kwargs: { enable_thinking: false },
     });
     return { allowed: classifierAllows(out) };
   } catch {
