@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run the gate
+        shell: bash
         env:
           SCRIPT: ${{ inputs.script }}
           ARGS: ${{ inputs.args }}
