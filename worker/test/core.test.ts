@@ -147,6 +147,7 @@ describe('config', () => {
     expect(c.models).toBeUndefined();
     expect(c.clip_routes).toBeUndefined();
     expect(c.language_models).toBeUndefined();
+    expect(c.caps).toBeUndefined(); // the daily spend caps are business-private (D-118)
   });
 
   it('needs a credential', async () => {

@@ -3,7 +3,7 @@ import { json } from '../lib/http';
 
 type ConfigMap = Record<string, unknown>;
 
-/** Only these keys reach the apps. Models and provider routes stay on the server. */
+/** Only these keys reach the apps. Models, provider routes and the daily spend caps stay on the server (D-118). */
 const CLIENT_KEYS = [
   'flags',
   'credit_costs',
@@ -12,7 +12,6 @@ const CLIENT_KEYS = [
   'languages_enabled',
   'voice_routes',
   'min_app_version',
-  'caps',
   'fair_use',
   'referral',
   'auth',
@@ -45,7 +44,7 @@ export async function cfg<T = unknown>(db: D1Database, key: string): Promise<T |
   return (await loadConfig(db))[key] as T | undefined;
 }
 
-/** `GET /v1/config`: prices, packs, caps, flags and languages. The apps never hard-code these. */
+/** `GET /v1/config`: prices, packs, flags and languages. The apps never hard-code these. */
 export async function handleConfig(env: Env): Promise<Response> {
   const all = await loadConfig(env.DB);
   const out: ConfigMap = { version: all.config_version ?? 0 };
