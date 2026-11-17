@@ -1,7 +1,7 @@
 // G13: reference-image face check (blueprint Section 26). 50 face images and 50 plain art images,
 // all generated here with FLUX.2 klein 4B (synthetic adults only; no real person is depicted).
 // Pass: at least 98% of faces flagged and at least 90% of plain art accepted. Three candidate vision models.
-import { QuotaError, runForm, runJson, save, schema } from './cf.ts';
+import { QuotaError, TransientError, runForm, runJson, save, schema } from './cf.ts';
 
 const log: string[] = [];
 const say = (s: string) => { console.log(s); log.push(s); };
@@ -37,8 +37,8 @@ async function retry<T>(f: () => Promise<T>): Promise<T> {
   for (let a = 0; ; a++) {
     try { return await f(); } catch (e) {
       if (e instanceof QuotaError) { quotaHit = true; throw e; }
-      if (a >= 2) throw e;
-      await new Promise((r) => setTimeout(r, 1500 * (a + 1)));
+      if (a >= (e instanceof TransientError ? 6 : 2)) throw e;
+      await new Promise((r) => setTimeout(r, (e instanceof TransientError ? 4000 : 1500) * (a + 1)));
     }
   }
 }
@@ -73,8 +73,8 @@ try {
 const probeImg = Buffer.from((await runForm(KLEIN, { prompt: 'A pencil sketch of a teapot. No text.', width: '512', height: '512' })).image, 'base64');
 const probeUrl = dataUrl(probeImg.toString('base64'));
 const variants: Array<[string, Record<string, unknown>]> = [
-  ['plain max_tokens 1500', { max_tokens: 1500 }],
   ['chat_template_kwargs.enable_thinking=false', { max_tokens: 300, chat_template_kwargs: { enable_thinking: false } }],
+  ['plain max_tokens 1500', { max_tokens: 1500 }],
   ['reasoning_effort=none', { max_tokens: 300, reasoning_effort: 'none' }],
   ['reasoning.effort=none', { max_tokens: 300, reasoning: { effort: 'none' } }],
 ];

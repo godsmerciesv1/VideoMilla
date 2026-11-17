@@ -11,7 +11,10 @@ export const save = (name: string, data: string | Uint8Array): void => writeFile
 
 const base = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT}/ai`;
 
+/** The daily neuron allowance is used up. Only this stops a run. */
 export class QuotaError extends Error {}
+/** A transient 429 / 5xx ("capacity temporarily exceeded"): retry with a pause, never treated as the daily quota. */
+export class TransientError extends Error {}
 
 async function call(url: string, init: RequestInit): Promise<any> {
   const res = await fetch(url, { ...init, headers: { Authorization: `Bearer ${TOKEN}`, ...(init.headers ?? {}) } });
@@ -20,7 +23,9 @@ async function call(url: string, init: RequestInit): Promise<any> {
   try { body = JSON.parse(text); } catch { body = { raw: text.slice(0, 500) }; }
   if (!res.ok) {
     const msg = JSON.stringify(body.errors ?? body).slice(0, 500);
-    if (res.status === 429 || /neuron|daily|limit|quota/i.test(msg)) throw new QuotaError(`HTTP ${res.status}: ${msg}`);
+    if (/capacity|temporarily|try again|overloaded/i.test(msg) || res.status >= 500) throw new TransientError(`HTTP ${res.status}: ${msg}`);
+    if (/neuron|daily|allocation|quota|free tier/i.test(msg)) throw new QuotaError(`HTTP ${res.status}: ${msg}`);
+    if (res.status === 429) throw new TransientError(`HTTP ${res.status}: ${msg}`);
     throw new Error(`HTTP ${res.status}: ${msg}`);
   }
   return body;
