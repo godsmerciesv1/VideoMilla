@@ -109,6 +109,7 @@ Where entries below replaced each other, this is what governs now.
 | L-07 | Read the Llama 3.1, Qwen3 and Black Forest Labs API terms | Before batch `wc` |
 | L-08 | TypeScript 7 with the Worker toolchain; fallback 5.9.3 | **Closed** by D-088: TypeScript 7.0.2 passes |
 | L-09 | Whether the Pages/Workers static site gets a custom domain | When the domain is bought |
+| L-10 | Cloud library: keep finished videos on the server so they survive a lost phone or a new device (needs account-based storage, deletion rules, a privacy-policy change, and R2 storage past the free 10 GB at scale) | Open: owner wants it parked. Not in the blueprint; decide after launch data |
 
 ## Phase 2: Models (batch m1)
 
@@ -228,3 +229,5 @@ I started building before Batch 0, which the blueprint puts first. That was not 
 ### Gate tracker note (2026-11-16)
 
 G3 done. G13, G5, G2 remain unrun but unblocked. `wb` is pushed with provisional prompts (D-093). G2 and G13 are due before `wc`. G1, G8 and G15 are unchanged.
+| D-099 | **Clip retention is 48 hours, not 24.** The cron deletes temporary clips from R2 after 48 hours, and the value is a config key (`clip_retention_hours`, default 48) read by the cron, never a constant in code. The blueprint says 24 hours in 12 places (Sections 5.11, 18, 19, 23.1, 23.9, F004, F106, the loophole register, T-ANI-12, T-OPS-05, T-STR-01, D-8). `docs/blueprint.md` stays as uploaded; **this entry overrides it**. Every later artefact that states the period (privacy page, Data safety answers, terms, in-app text, runbook) must say 48 hours | The owner asked for more time to fetch a clip. Cost is negligible: at the $10/day video cap, peak storage is about 0.6 GB at an estimated 4 MB a clip, against 10 GB free. Not yet measured: G8 gives real clip sizes |
+| D-100 | **What the 48 hours means for users.** Only the raw AI clip waits on the server. The app fetches a ready clip automatically, so most users never notice the window; it matters when the phone is offline or the app is closed. The finished video is rendered on the device and saved there, with no server expiry. User wording to build: for a clip not yet fetched, "Your clip is ready. Open VideoMilla within 48 hours to save it"; on the web, "Download your video to keep it. Browser storage can be cleared." Pictures and scripts are never kept on the server. Reinstalling or changing phone still loses projects unless exported (blueprint 5.9); the optional cloud library is L-10 | Owner asked whether users can be told to download within 48 hours. Yes, for the clip window; the final video has no server deadline because the server never holds it |
