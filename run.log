@@ -1,0 +1,63 @@
+GEMMA schema top-level keys: (oneOf); reasoning-like names: "chat_template_kwargs", "enable_thinking", "reasoning_tokens"
+GEMMA variant [chat_template_kwargs.enable_thinking=false] -> content="{\"face\": false}" finish=stop completion_tokens=6 neurons=2.90
+GEMMA variant [plain max_tokens 1500] -> content="{\"face\": false}" finish=stop completion_tokens=55 neurons=4.26
+GEMMA variant [reasoning_effort=none] -> content="```json\n{\"face\": false}\n```" finish=stop completion_tokens=93 neurons=5.30
+GEMMA variant [reasoning.effort=none] -> content="{\"face\": false}" finish=stop completion_tokens=53 neurons=4.21
+GEMMA chosen settings: {"max_tokens":300,"chat_template_kwargs":{"enable_thinking":false}}
+generate art08 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art02 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art09 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art11 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art06 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art10 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art13 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art14 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art07 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art15 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art18 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art16 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art17 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art20 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art19 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art22 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art23 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art24 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art26 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art27 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art25 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art28 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art30 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art29 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art32 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art31 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art34 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art12 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art35 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art36 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art38 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art39 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art40 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art37 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art42 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art43 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art21 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art45 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art44 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art47 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art46 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art49 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art48 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate cartoon1 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art50 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art41 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate cartoon3 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate cartoon2 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate cartoon4 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate cartoon6 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate cartoon5 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generate art33 failed: HTTP 429: [{"message":"AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Worke
+generated 54/106 images (52 failures); DAILY QUOTA HIT
+
+| model | faces flagged | art accepted | cartoon faces flagged | unreadable | neurons per call |
+| --- | --- | --- | --- | --- | --- |
+RESULT INCOMPLETE: the daily Workers AI quota stopped the run. Rerun after 00:00 UTC.
