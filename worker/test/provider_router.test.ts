@@ -76,10 +76,10 @@ describe('clip routing', () => {
 
 describe('caps and models', () => {
   it('converts dollars to micro-dollars, with the blueprint defaults when config is missing', async () => {
-    expect(await spendCaps(db)).toEqual({ videoMicro: 1_000_000, workersAiMicro: 3_300_000, fallbackMicro: 1_000_000 });
+    expect(await spendCaps(db)).toEqual({ videoMicro: 1_000_000, workersAiMicro: 3_300_000, fallbackMicro: 1_000_000, googleCharsMicro: 2_000_000 });
     await db.prepare("DELETE FROM config WHERE key = 'caps'").run();
     clearConfigCache();
-    expect(await spendCaps(db)).toEqual({ videoMicro: 10_000_000, workersAiMicro: 3_300_000, fallbackMicro: 3_000_000 });
+    expect(await spendCaps(db)).toEqual({ videoMicro: 10_000_000, workersAiMicro: 3_300_000, fallbackMicro: 3_000_000, googleCharsMicro: 2_000_000 });
   });
 
   it('text models: the default then the fallback, or a per-language override', async () => {

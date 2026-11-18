@@ -1,4 +1,5 @@
 import type { Env } from '../env';
+import { aiText, firstJsonObject } from './ai_text';
 import { cfg } from '../routes/config';
 
 /**
@@ -43,18 +44,13 @@ export function guardSaysSafe(result: unknown): boolean {
   return false;
 }
 
-/** The classifier's answer: a JSON verdict that is exactly "allow". */
+/**
+ * The classifier's answer: a JSON verdict that is exactly "allow". Gemma 4 answers in chat format
+ * (`choices[0].message.content`); older models use `response`. Both are read (found when a route test
+ * showed every non-Guard language being blocked).
+ */
 export function classifierAllows(result: unknown): boolean {
-  const r = (result as { response?: unknown } | null | undefined)?.response;
-  if (r && typeof r === 'object') return (r as { verdict?: unknown }).verdict === 'allow';
-  if (typeof r !== 'string') return false;
-  const m = r.match(/\{[^{}]*\}/);
-  if (!m) return false;
-  try {
-    return (JSON.parse(m[0]) as { verdict?: unknown }).verdict === 'allow';
-  } catch {
-    return false;
-  }
+  return firstJsonObject(aiText(result))?.verdict === 'allow';
 }
 
 /** Llama Guard on one text. An empty text needs no check. */

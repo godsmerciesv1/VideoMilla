@@ -73,7 +73,15 @@ class AppConfig {
       'series_new_character': 4,
       'series_reuse_character': 0,
     },
-    fairUse: <String, int>{'animated_seconds_per_day': 150, 'clips_in_flight': 2, 'pictures_per_day': 200},
+    fairUse: <String, int>{
+      'established_after_days': 7,
+      'pictures_per_day_new': 400,
+      'pictures_per_day_established': 0,
+      'animated_seconds_per_day_new': 600,
+      'animated_seconds_per_day_established': 0,
+      'clips_in_flight_new': 2,
+      'clips_in_flight_established': 6,
+    },
   );
 
   /// Bumped by the server when config changes.

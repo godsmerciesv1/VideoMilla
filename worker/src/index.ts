@@ -3,8 +3,12 @@ import type { Auth } from './lib/auth';
 import { authenticate } from './lib/auth';
 import { HttpError, belowMin, errorResponse, preflight, withCors, json } from './lib/http';
 import { cfg, handleConfig } from './routes/config';
+import { handleAssist } from './routes/assist';
+import { handleImage } from './routes/image';
 import { handleReferenceCheck } from './routes/reference_check';
 import { handleReport } from './routes/report';
+import { handleStructure } from './routes/structure';
+import { handleTts } from './routes/tts';
 import { handleBalance, handleSession } from './routes/session';
 
 /**
@@ -15,6 +19,10 @@ async function route(req: Request, env: Env, auth: Auth, path: string): Promise<
   if (path === '/v1/balance' && req.method === 'GET') return handleBalance(env, auth);
   if (path === '/v1/config' && req.method === 'GET') return handleConfig(env);
   if (path === '/v1/report' && req.method === 'POST') return handleReport(req, env, auth);
+  if (path === '/v1/structure' && req.method === 'POST') return handleStructure(req, env, auth);
+  if (path === '/v1/assist' && req.method === 'POST') return handleAssist(req, env, auth);
+  if (path === '/v1/image' && req.method === 'POST') return handleImage(req, env, auth);
+  if (path === '/v1/tts' && req.method === 'POST') return handleTts(req, env, auth);
   if (path === '/v1/reference/check' && req.method === 'POST') return handleReferenceCheck(req, env, auth);
   throw new HttpError(404, 'not_found');
 }

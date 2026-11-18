@@ -69,6 +69,7 @@ export interface Caps {
   videoMicro: number;
   workersAiMicro: number;
   fallbackMicro: number;
+  googleCharsMicro: number;
 }
 
 const usdToMicro = (usd: unknown, fallback: number): number =>
@@ -81,6 +82,7 @@ export async function spendCaps(db: D1Database): Promise<Caps> {
     videoMicro: usdToMicro(c.video_usd, 10_000_000),
     workersAiMicro: usdToMicro(c.workers_ai_usd, 3_300_000),
     fallbackMicro: usdToMicro(c.fallback_usd, 3_000_000),
+    googleCharsMicro: usdToMicro(c.google_chars_usd, 2_000_000),
   };
 }
 

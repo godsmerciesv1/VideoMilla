@@ -39,6 +39,10 @@ describe('reading the answers', () => {
     expect(classifierAllows({ response: '{not json}' })).toBe(false);
     expect(classifierAllows({ response: { verdict: 'allow' } })).toBe(true);
     expect(classifierAllows(null)).toBe(false);
+    // Gemma 4's real answer shape (chat format), seen at G13
+    expect(classifierAllows({ choices: [{ message: { content: '{"verdict":"allow"}' } }] })).toBe(true);
+    expect(classifierAllows({ choices: [{ message: { content: '{"verdict":"block"}' } }] })).toBe(false);
+    expect(classifierAllows({ choices: [{ message: { content: '' } }] })).toBe(false);
   });
 });
 

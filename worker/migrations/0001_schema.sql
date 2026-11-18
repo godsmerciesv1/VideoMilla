@@ -62,4 +62,4 @@ INSERT INTO config(key, value) VALUES
 ('flags', '{"cartoon_me_enabled":false,"google_signin_enabled":false,"purchases_enabled":false}'),
 ('min_app_version', '"0.0.0"'),
 ('caps', '{"video_usd":10,"workers_ai_usd":3.3,"fallback_usd":3}'),
-('fair_use', '{"animated_seconds_per_day":150,"clips_in_flight":2,"pictures_per_day":200}');
+('fair_use', '{"established_after_days":7,"pictures_per_day_new":400,"pictures_per_day_established":0,"animated_seconds_per_day_new":600,"animated_seconds_per_day_established":0,"clips_in_flight_new":2,"clips_in_flight_established":6}');

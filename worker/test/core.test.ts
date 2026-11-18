@@ -143,7 +143,8 @@ describe('config', () => {
     expect(c.packs_polar).toEqual([]);
     expect(c.languages_enabled).toEqual(['en']);
     expect(c.flags.cartoon_me_enabled).toBe(false);
-    expect(c.fair_use.pictures_per_day).toBe(200);
+    expect(c.fair_use.pictures_per_day_new).toBe(400);
+    expect(c.fair_use.pictures_per_day_established).toBe(0); // 0 means no daily limit (D-113)
     expect(c.models).toBeUndefined();
     expect(c.clip_routes).toBeUndefined();
     expect(c.language_models).toBeUndefined();
