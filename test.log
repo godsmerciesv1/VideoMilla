@@ -1,0 +1,85 @@
+
+> videomilla-api@0.1.0 test
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.12 [39m[90m/home/runner/work/VideoMilla/VideoMilla/worker[39m
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/ai_routes.test.ts [2m([22m[2m33 tests[22m[2m)[22m[33m 1476[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/ledger.test.ts [2m([22m[2m32 tests[22m[2m)[22m[33m 1885[2mms[22m[39m
+     [33m[2m✓[22m[39m 300 simultaneous spends against a balance of 100: exactly 100 succeed [33m 613[2mms[22m[39m
+     [33m[2m✓[22m[39m the balance never goes negative and the ledger always equals the balance [33m 620[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/clips.test.ts [2m([22m[2m38 tests[22m[2m)[22m[33m 2360[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/schemas.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/image.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 1296[2mms[22m[39m
+       [33m[2m✓[22m[39m 30 simultaneous pictures against 20 credits: exactly 20 are made [33m 341[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/tts.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 510[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/providers.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 87[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/reference_check.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 534[2mms[22m[39m
+     [33m[2m✓[22m[39m limits a wallet to 120 checks an hour [33m 429[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/core.test.ts [2m([22m[2m24 tests[22m[2m)[22m[33m 2784[2mms[22m[39m
+     [33m[2m✓[22m[39m limits sessions per network address [33m 382[2mms[22m[39m
+     [33m[2m✓[22m[39m starts a new window when the old one ends [33m 2109[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/provider_router.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 896[2mms[22m[39m
+     [33m[2m✓[22m[39m 100 simultaneous picks never overspend the cap [33m 326[2mms[22m[39m
+     [33m[2m✓[22m[39m base64 round trips large byte arrays [33m 484[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/moderation.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/idempotency.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 101[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/google_tts.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 474[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/spend_cap.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 167[2mms[22m[39m
+ [32m✓[39m test/tokens.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m test/report.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 147[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m      Tests [22m [1m[32m270 passed[39m[22m[90m (270)[39m
+[2m   Start at [22m 22:24:55
+[2m   Duration [22m 11.82s[2m (transform 719ms, setup 3.65s, import 724ms, tests 12.78s, environment 3ms)[22m
+
