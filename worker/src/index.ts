@@ -4,6 +4,9 @@ import { authenticate } from './lib/auth';
 import { HttpError, belowMin, errorResponse, preflight, withCors, json } from './lib/http';
 import { cfg, handleConfig } from './routes/config';
 import { handleAssist } from './routes/assist';
+import { handleClipFile } from './routes/clip_file';
+import { handleAck, handleClipStatus } from './routes/clip_status';
+import { handleClipSubmit, runClipJob } from './routes/clip_submit';
 import { handleImage } from './routes/image';
 import { handleReferenceCheck } from './routes/reference_check';
 import { handleReport } from './routes/report';
@@ -23,6 +26,10 @@ async function route(req: Request, env: Env, auth: Auth, path: string): Promise<
   if (path === '/v1/assist' && req.method === 'POST') return handleAssist(req, env, auth);
   if (path === '/v1/image' && req.method === 'POST') return handleImage(req, env, auth);
   if (path === '/v1/tts' && req.method === 'POST') return handleTts(req, env, auth);
+  if (path === '/v1/clip/submit' && req.method === 'POST') return handleClipSubmit(req, env, auth);
+  if (path === '/v1/clip/status' && req.method === 'GET') return handleClipStatus(req, env, auth);
+  if (path === '/v1/clip/file' && req.method === 'GET') return handleClipFile(req, env, auth);
+  if (path === '/v1/ack' && req.method === 'POST') return handleAck(req, env, auth);
   if (path === '/v1/reference/check' && req.method === 'POST') return handleReferenceCheck(req, env, auth);
   throw new HttpError(404, 'not_found');
 }
@@ -43,4 +50,8 @@ export default {
       return withCors(req, env, errorResponse(e));
     }
   },
-} satisfies ExportedHandler<Env>;
+  /** The clip queue consumer: one message per clip. Retries and refunds are decided inside `runClipJob`. */
+  async queue(batch: MessageBatch<{ key: string }>, env: Env): Promise<void> {
+    for (const m of batch.messages) await runClipJob(env, m.body.key, m);
+  },
+} satisfies ExportedHandler<Env, { key: string }>;

@@ -1,6 +1,6 @@
 import type { Env } from '../env';
 import { cfg } from '../routes/config';
-import { reserveSpend, type SpendKind } from './spend_cap';
+import { reserveSpend, spentToday, type SpendKind } from './spend_cap';
 
 /**
  * The only place provider order lives (blueprint F086). Routes, caps and model ids all come from
@@ -114,6 +114,21 @@ export async function pickClipProvider(
     }
   }
   return null;
+}
+
+/**
+ * Whether at least one route still has budget for [seconds] of clip, WITHOUT reserving it. The submit route uses this
+ * to answer "busy" before any credits move; the real reservation happens when the job picks its provider.
+ */
+export async function clipBudgetAvailable(env: Env, seconds: number): Promise<boolean> {
+  const [routes, caps] = await Promise.all([clipRoutes(env.DB), spendCaps(env.DB)]);
+  for (const route of routes) {
+    const est = Math.round(route.costPerSecondMicro * seconds);
+    const kind: SpendKind = route.role === 'fallback' ? 'fallback' : 'video';
+    const cap = kind === 'fallback' ? caps.fallbackMicro : caps.videoMicro;
+    if ((await spentToday(env.DB, kind)) + est <= cap) return true;
+  }
+  return false;
 }
 
 const DEFAULT_MODELS = {

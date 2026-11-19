@@ -28,7 +28,7 @@ export interface PaidJob {
   undo?: () => Promise<void>;
 }
 
-function reserveError(o: Exclude<Outcome, 'ok'>): HttpError {
+export function reserveError(o: Exclude<Outcome, 'ok'>): HttpError {
   switch (o) {
     case 'insufficient':
       return new HttpError(402, 'insufficient_credits');

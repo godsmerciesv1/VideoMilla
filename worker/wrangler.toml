@@ -30,5 +30,13 @@ id = "c9bd264c9944480a84604b9ab2f6de87"
 queue = "clip-jobs"
 binding = "CLIP_JOBS"
 
-# The queue consumer and the daily cron are added in batch wd, together with their handlers.
+# The queue consumer. No max_concurrency: the queue autoscales, and the real ceilings are set in config
+# (`clip_global_concurrency`) and by the provider's plan (decision D-110). max_retries is high because a job is
+# re-queued with a delay while a concurrency limit holds it; the job itself gives up after 3 provider tries.
+[[queues.consumers]]
+queue = "clip-jobs"
+max_batch_size = 1
+max_retries = 25
+
+# The daily cron is added with its handler in the second half of batch wd.
 # No [limits] cpu_ms: that setting needs the paid plan (decision D-079).

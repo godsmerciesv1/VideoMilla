@@ -113,3 +113,33 @@ export const post = (app: App, path: string, acc: Account, body: unknown, key: s
   app.call(path, { method: 'POST', headers: { ...acc.headers, ...(key ? { 'X-Idempotency-Key': key } : {}) }, body: JSON.stringify(body) });
 
 export const balanceOf = async (walletId: string): Promise<number> => (await env.DB.prepare('SELECT balance FROM wallets WHERE id = ?').bind(walletId).first<{ balance: number }>())!.balance;
+
+// ---- clips ----
+export const jpegBytes = (n = 80): Uint8Array => new Uint8Array([0xff, 0xd8, 0xff, 0xe0, ...Array.from({ length: n }, (_, i) => i % 250)]);
+export const toB64 = (b: Uint8Array): string => { let s = ''; for (const x of b) s += String.fromCharCode(x); return btoa(s); };
+export const JPEG_B64 = toB64(jpegBytes());
+
+/** An MP3 of about [seconds] seconds: MPEG-1 Layer III, 128 kbps, 44.1 kHz, 417-byte frames of 1152 samples. */
+export function mp3Of(seconds: number): Uint8Array {
+  const frames = Math.max(2, Math.round((seconds * 44100) / 1152));
+  const out = new Uint8Array(frames * 417);
+  for (let f = 0; f < frames; f++) out.set([0xff, 0xfb, 0x90, 0x00], f * 417);
+  return out;
+}
+
+export const mp4Bytes = (n = 4096): Uint8Array => { const b = new Uint8Array(n); b.set([0x66, 0x74, 0x79, 0x70], 4); return b; };
+
+export class FakeQueue {
+  sent: string[] = [];
+  fail = false;
+  async send(m: { key: string }): Promise<void> { if (this.fail) throw new Error('queue down'); this.sent.push(m.key); }
+  async sendBatch(ms: Array<{ body: { key: string } }>): Promise<void> { if (this.fail) throw new Error('queue down'); for (const m of ms) this.sent.push(m.body.key); }
+}
+
+export class Msg {
+  attempts = 1;
+  acked = 0;
+  retried: Array<number | undefined> = [];
+  ack(): void { this.acked++; }
+  retry(o?: { delaySeconds?: number }): void { this.retried.push(o?.delaySeconds); }
+}

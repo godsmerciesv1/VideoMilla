@@ -31,3 +31,23 @@ const dailyKey = (kind: string, walletId: string): string => `daily:${kind}:${wa
 /** A per-wallet, per-day counter (for example pictures). */
 export const takeDaily = (db: D1Database, kind: string, walletId: string): Promise<number> => take(db, dailyKey(kind, walletId), day());
 export const releaseDaily = (db: D1Database, kind: string, walletId: string): Promise<void> => release(db, dailyKey(kind, walletId));
+
+/**
+ * Adds [amount] to a per-wallet daily total only if it stays within [limit] (one atomic conditional upsert).
+ * Used for animated seconds a day. Returns false, changing nothing, when it would go over.
+ */
+export async function reserveDailyAmount(db: D1Database, kind: string, walletId: string, amount: number, limit: number): Promise<boolean> {
+  if (amount > limit) return false;
+  const r = await db
+    .prepare(
+      `INSERT INTO counters(key, window, count) VALUES(?1, ?2, ?3)
+       ON CONFLICT(key) DO UPDATE SET count = count + excluded.count WHERE count + excluded.count <= ?4`,
+    )
+    .bind(dailyKey(kind, walletId), day(), amount, limit)
+    .run();
+  return (r.meta.changes ?? 0) === 1;
+}
+
+export async function releaseDailyAmount(db: D1Database, kind: string, walletId: string, amount: number): Promise<void> {
+  await db.prepare('UPDATE counters SET count = MAX(count - ?1, 0) WHERE key = ?2').bind(amount, dailyKey(kind, walletId)).run();
+}

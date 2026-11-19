@@ -72,7 +72,7 @@ export async function readJson<T = unknown>(req: Request, maxBytes: number, allo
   }
 }
 
-const ALLOWED_HEADERS = 'Authorization, Content-Type, X-App-Version, X-Idempotency-Key';
+const ALLOWED_HEADERS = 'Authorization, Content-Type, X-App-Version, X-Idempotency-Key, Range';
 
 /** The origin to echo back, or null when the caller's origin is not allowed. */
 export function allowedOrigin(req: Request, env: Env): string | null {
@@ -105,7 +105,7 @@ export function withCors(req: Request, env: Env, res: Response): Response {
   const origin = allowedOrigin(req, env);
   if (origin) {
     h.set('Access-Control-Allow-Origin', origin);
-    h.set('Access-Control-Expose-Headers', 'X-Request-Id');
+    h.set('Access-Control-Expose-Headers', 'X-Request-Id, Content-Range, Accept-Ranges');
     h.append('Vary', 'Origin');
   }
   if (!h.has('X-Request-Id')) h.set('X-Request-Id', requestId());
