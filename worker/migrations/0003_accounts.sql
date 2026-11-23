@@ -44,4 +44,6 @@ INSERT OR REPLACE INTO config(key, value) VALUES
 ('auth', '{"code_ttl_s":900,"max_code_attempts":5,"emails_per_address_hour":5,"emails_per_address_day":20,"requests_per_ip_hour":20,"verifies_per_ip_15m":10,"max_devices":10}'),
 ('referral', '{"min_pack_credits":90,"percent":10,"hold_days":14,"max_referrals_30d":20,"max_bonus_30d":500}'),
 ('clip_retention_hours', '48'),
-('clip_global_concurrency', '30');
+('clip_global_concurrency', '30'),
+('caps_policy', '{"enabled":true,"share_video":0.3,"share_workers_ai":0.1,"window_days":7,"credit_net_usd":0.0225,"ceiling_video_usd":null,"ceiling_workers_ai_usd":null}'),
+('polar_api_base', '"https://api.polar.sh/v1"');

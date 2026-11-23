@@ -143,3 +143,27 @@ export class Msg {
   ack(): void { this.acked++; }
   retry(o?: { delaySeconds?: number }): void { this.retried.push(o?.delaySeconds); }
 }
+
+// ---- accounts and Polar ----
+/** An account row for a wallet (accounts are created by the sign-in batch later; tests need the row now). */
+export async function makeAccountFor(walletId: string, o: { email?: string | null; referredBy?: string | null; deleted?: boolean } = {}): Promise<string> {
+  const id = 'acc-' + uid();
+  const email = o.email === undefined ? `${uid().toLowerCase()}@example.test` : o.email;
+  await env.DB.prepare('INSERT INTO accounts(id, wallet_id, email, referral_code, referred_by, deleted) VALUES(?, ?, ?, ?, ?, ?)')
+    .bind(id, walletId, email, uid().toUpperCase().replace(/[^A-Z0-9]/g, 'X').slice(0, 8).padEnd(8, 'X'), o.referredBy ?? null, o.deleted ? 1 : 0)
+    .run();
+  return id;
+}
+
+export const POLAR_SECRET = 'whsec_polar_test_secret_value_123';
+
+/** Signs a webhook body the Standard Webhooks way, with the secret's own bytes as the key. */
+export async function signHook(body: string, o: { secret?: string; id?: string; ts?: number; key?: 'utf8' | 'base64' } = {}): Promise<Record<string, string>> {
+  const id = o.id ?? 'msg_' + uid();
+  const ts = String(o.ts ?? Math.floor(Date.now() / 1000));
+  const secret = o.secret ?? POLAR_SECRET;
+  const keyBytes = o.key === 'base64' ? Uint8Array.from(atob(secret.replace(/^whsec_/, '')), (c) => c.charCodeAt(0)) : new TextEncoder().encode(secret);
+  const k = await crypto.subtle.importKey('raw', keyBytes, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const sig = new Uint8Array(await crypto.subtle.sign('HMAC', k, new TextEncoder().encode(`${id}.${ts}.${body}`)));
+  return { 'webhook-id': id, 'webhook-timestamp': ts, 'webhook-signature': 'v1,' + toB64(sig), 'Content-Type': 'application/json' };
+}

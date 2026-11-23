@@ -4,14 +4,17 @@ import { authenticate } from './lib/auth';
 import { HttpError, belowMin, errorResponse, preflight, withCors, json } from './lib/http';
 import { cfg, handleConfig } from './routes/config';
 import { handleAssist } from './routes/assist';
+import { runDaily, runFrequent } from './lib/cron';
 import { handleClipFile } from './routes/clip_file';
 import { handleAck, handleClipStatus } from './routes/clip_status';
 import { handleClipSubmit, runClipJob } from './routes/clip_submit';
+import { handlePolarCheckout } from './routes/checkout_polar';
 import { handleImage } from './routes/image';
 import { handleReferenceCheck } from './routes/reference_check';
 import { handleReport } from './routes/report';
 import { handleStructure } from './routes/structure';
 import { handleTts } from './routes/tts';
+import { handlePolarWebhook } from './routes/webhook_polar';
 import { handleBalance, handleSession } from './routes/session';
 
 /**
@@ -30,6 +33,7 @@ async function route(req: Request, env: Env, auth: Auth, path: string): Promise<
   if (path === '/v1/clip/status' && req.method === 'GET') return handleClipStatus(req, env, auth);
   if (path === '/v1/clip/file' && req.method === 'GET') return handleClipFile(req, env, auth);
   if (path === '/v1/ack' && req.method === 'POST') return handleAck(req, env, auth);
+  if (path === '/v1/checkout/polar' && req.method === 'POST') return handlePolarCheckout(req, env, auth);
   if (path === '/v1/reference/check' && req.method === 'POST') return handleReferenceCheck(req, env, auth);
   throw new HttpError(404, 'not_found');
 }
@@ -41,6 +45,8 @@ export default {
     try {
       // Every request passes CORS, authentication and the minimum-version gate, in that order.
       if (path === '/v1/session' && req.method === 'POST') return withCors(req, env, await handleSession(req, env));
+      // The Polar webhook has no device credential: its signature is the authentication.
+      if (path === '/v1/hooks/polar' && req.method === 'POST') return withCors(req, env, await handlePolarWebhook(req, env));
       const auth = await authenticate(req, env);
       if (belowMin(req.headers.get('X-App-Version'), await cfg(env.DB, 'min_app_version'))) {
         return withCors(req, env, json({ error: 'update_required' }, 426));
@@ -53,5 +59,10 @@ export default {
   /** The clip queue consumer: one message per clip. Retries and refunds are decided inside `runClipJob`. */
   async queue(batch: MessageBatch<{ key: string }>, env: Env): Promise<void> {
     for (const m of batch.messages) await runClipJob(env, m.body.key, m);
+  },
+  /** The 15-minute pass handles abandoned work only; the daily run does everything (see `lib/cron.ts`). */
+  async scheduled(controller: ScheduledController, env: Env): Promise<void> {
+    if (controller.cron === '*/15 * * * *') await runFrequent(env);
+    else await runDaily(env);
   },
 } satisfies ExportedHandler<Env, { key: string }>;

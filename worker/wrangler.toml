@@ -38,5 +38,7 @@ queue = "clip-jobs"
 max_batch_size = 1
 max_retries = 25
 
-# The daily cron is added with its handler in the second half of batch wd.
+# Every 15 minutes: refund abandoned work. Daily at 03:00 UTC: everything else (storage cleanup, referrals, caps, summaries).
+[triggers]
+crons = ["*/15 * * * *", "0 3 * * *"]
 # No [limits] cpu_ms: that setting needs the paid plan (decision D-079).

@@ -75,12 +75,17 @@ export interface Caps {
 const usdToMicro = (usd: unknown, fallback: number): number =>
   typeof usd === 'number' && usd >= 0 ? Math.round(usd * 1_000_000) : fallback;
 
-/** Daily spend caps in millionths of a dollar. Defaults are the blueprint's ($10, $3.30, $3). */
+/**
+ * Daily spend caps in millionths of a dollar. The configured floors ($10 video, $3.30 Workers AI, $3 fallback) are
+ * raised by `caps_effective`, which the daily cron writes from recent sales (decision D-111); a cap never falls below its floor.
+ */
 export async function spendCaps(db: D1Database): Promise<Caps> {
   const c = (await cfg<Record<string, unknown>>(db, 'caps')) ?? {};
+  const e = (await cfg<Record<string, unknown>>(db, 'caps_effective')) ?? {};
+  const best = (k: string, d: number): number => Math.max(usdToMicro(c[k], d), usdToMicro(e[k], 0));
   return {
-    videoMicro: usdToMicro(c.video_usd, 10_000_000),
-    workersAiMicro: usdToMicro(c.workers_ai_usd, 3_300_000),
+    videoMicro: best('video_usd', 10_000_000),
+    workersAiMicro: best('workers_ai_usd', 3_300_000),
     fallbackMicro: usdToMicro(c.fallback_usd, 3_000_000),
     googleCharsMicro: usdToMicro(c.google_chars_usd, 2_000_000),
   };
