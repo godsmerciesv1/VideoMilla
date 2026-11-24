@@ -1,0 +1,100 @@
+
+> videomilla-api@0.1.0 test
+> vitest run
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.12 [39m[90m/home/runner/work/VideoMilla/VideoMilla/worker[39m
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/ai_routes.test.ts [2m([22m[2m33 tests[22m[2m)[22m[33m 1058[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/ledger.test.ts [2m([22m[2m32 tests[22m[2m)[22m[33m 1569[2mms[22m[39m
+     [33m[2m✓[22m[39m 300 simultaneous spends against a balance of 100: exactly 100 succeed [33m 441[2mms[22m[39m
+     [33m[2m✓[22m[39m the balance never goes negative and the ledger always equals the balance [33m 641[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/clips.test.ts [2m([22m[2m38 tests[22m[2m)[22m[33m 2082[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/cron.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 787[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/image.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 1154[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/polar.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 586[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/schemas.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/tts.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 430[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/referral.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 586[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/providers.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 79[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/reference_check.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 433[2mms[22m[39m
+     [33m[2m✓[22m[39m limits a wallet to 120 checks an hour [33m 326[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/core.test.ts [2m([22m[2m24 tests[22m[2m)[22m[33m 2621[2mms[22m[39m
+     [33m[2m✓[22m[39m starts a new window when the old one ends [33m 2130[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/moderation.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/provider_router.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 570[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/protocol.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 3114[2mms[22m[39m
+     [33m[2m✓[22m[39m seed 11: failures, duplicates, abandoned requests and cron runs never break the money [33m 872[2mms[22m[39m
+     [33m[2m✓[22m[39m seed 2026: failures, duplicates, abandoned requests and cron runs never break the money [33m 998[2mms[22m[39m
+     [33m[2m✓[22m[39m seed 90210: failures, duplicates, abandoned requests and cron runs never break the money [33m 1115[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/google_tts.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 290[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/idempotency.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 105[2mms[22m[39m
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mAI bindings always access remote resources, and so may incur usage charges even in local dev. To suppress this warning, set `remote: true` for the binding definition in your configuration file.[0m
+
+
+ [32m✓[39m test/spend_cap.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 177[2mms[22m[39m
+ [32m✓[39m test/report.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 152[2mms[22m[39m
+ [32m✓[39m test/tokens.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m20 passed[39m[22m[90m (20)[39m
+[2m      Tests [22m [1m[32m338 passed[39m[22m[90m (338)[39m
+[2m   Start at [22m 05:10:11
+[2m   Duration [22m 12.05s[2m (transform 583ms, setup 4.00s, import 590ms, tests 15.83s, environment 1ms)[22m
+
