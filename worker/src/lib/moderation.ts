@@ -95,20 +95,20 @@ export async function classifySourceLanguage(env: Env, text: string, language: s
 export interface ModerateAllInput {
   script: string;
   language: string;
-  /** English translations of each narration line (Qwen-style routing no longer exists; D-085). */
+  /** English translations of each narration line, checked for languages Llama Guard does not cover. */
   translationsEn?: string[];
 }
 
 /**
- * The full check for a script. A language Llama Guard covers needs one check. Every other language
- * also gets its English translations moderated and an independent source-language classifier call.
- * All must pass.
+ * The full check for a text. Llama Guard covers general harm, but not licensed characters, real people used
+ * harmlessly, or torture that is graphic but not instructional (found at G5: all three got through). So the policy
+ * classifier runs for EVERY language as a second layer, in parallel. Languages Llama Guard does not cover also get
+ * their English translations moderated. All checks must pass; any error blocks.
  */
 export async function moderateAll(env: Env, i: ModerateAllInput): Promise<Verdict> {
-  const checks: Array<Promise<Verdict>> = [moderate(env, i.script)];
+  const checks: Array<Promise<Verdict>> = [moderate(env, i.script), classifySourceLanguage(env, i.script, i.language)];
   if (!guardCovers(i.language)) {
     for (const t of i.translationsEn ?? []) checks.push(moderate(env, t));
-    checks.push(classifySourceLanguage(env, i.script, i.language));
   }
   const results = await Promise.all(checks);
   return { allowed: results.every((r) => r.allowed) };

@@ -71,13 +71,19 @@ describe('moderate (fails closed)', () => {
 });
 
 describe('moderateAll', () => {
-  it('a language Llama Guard covers needs one check', async () => {
+  it('a language Llama Guard covers gets Guard plus the policy classifier', async () => {
     const f = fake(guardSafe);
     expect((await moderateAll(f.env, { script: 'Hello', language: 'en' })).allowed).toBe(true);
-    expect(f.calls).toHaveLength(1);
-    expect(f.calls[0]!.model).toContain('llama-guard');
+    expect(f.calls).toHaveLength(2);
+    expect(f.calls.filter((c) => c.model.includes('llama-guard'))).toHaveLength(1);
+    expect(f.calls.some((c) => !c.model.includes('guard') && JSON.stringify(c.input).includes('licensed characters'))).toBe(true);
     expect(guardCovers('pt_BR')).toBe(true);
     expect(guardCovers('ar')).toBe(false);
+  });
+
+  it('the classifier alone can block, in any language: Guard misses licensed characters and graphic torture (G5)', async () => {
+    const f = fake(async (model) => (model.includes('guard') ? { response: { safe: true } } : { choices: [{ message: { content: '{"verdict":"block"}' } }] }));
+    for (const language of ['en', 'fr', 'ja']) expect((await moderateAll(f.env, { script: 'Mickey Mouse fights Darth Vader', language })).allowed).toBe(false);
   });
 
   it('any other language also checks the English translations and the source language', async () => {
